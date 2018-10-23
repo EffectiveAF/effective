@@ -82,6 +82,12 @@
   cursor: pointer;
 }
 
+.task-list-ctn .filter-label {
+  word-break: normal;
+  word-wrap: normal;
+  overflow-wrap: normal;
+}
+
 .parent-task-ctn h4 {
   display: inline;
 }
