@@ -52,10 +52,17 @@ export const getTasks = pursuanceId => ({
   payload: getTasksReq(pursuanceId)
 });
 
-export const postTask = task => ({
-  type: 'POST_TASK',
-  payload: postTaskReq(task)
-});
+export const postTask = task => {
+  const taskCopy = { ...task };
+  if (taskCopy.assigned_to === '') {
+    /* Fixes 409 CONFLICT errors; '' is not a valid FK to the `users` table */
+    delete taskCopy.assigned_to;
+  }
+  return {
+    type: 'POST_TASK',
+    payload: postTaskReq(taskCopy)
+  }
+}
 
 export const deleteTask = task => ({
   type: 'DELETE_TASK',
