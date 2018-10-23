@@ -1,3 +1,13 @@
+function isChromium() {
+  const pdfViewer = 'Chromium PDF Viewer';
+  for (let i = 0; i < navigator.plugins.length; i++) {
+    if (navigator.plugins[i].name === pdfViewer) {
+      return true;
+    }
+    return false;
+  }
+}
+
 if (!window.browser) {
   const ua = navigator.userAgent;
   const browsers = ['Safari', 'MSIE', 'Firefox'];
@@ -8,5 +18,10 @@ if (!window.browser) {
     }
   }
   let Chrome = ua.indexOf('Chrome') > -1;
-  if (window.browser === 'Safari' && Chrome) window.browser = 'Chrome';
+  if (window.browser === 'Safari' && Chrome) {
+    window.browser = 'Chrome';
+    if (isChromium()) {
+      window.browserIsChromium = true;
+    }
+  }
 }
