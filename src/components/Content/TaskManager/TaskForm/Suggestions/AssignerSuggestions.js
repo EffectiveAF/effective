@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addSuggestion, setTaskAssignee } from '../../../../../actions';
-import { scrollIntoViewOptions } from '../../../../../utils/suggestions';
 import { PURSUANCE_DISPLAY_PREFIX } from '../../../../../constants';
 import './AssignerSuggestions.css';
 
@@ -56,11 +55,6 @@ const AssignerSuggestions = (props) => {
               }
             },
             className : activeItem ? 'active suggestion': 'suggestion',
-          }
-          if (activeItem) {
-            props.ref = (item) => {
-              if (item) item.scrollIntoView(scrollIntoViewOptions);
-            }
           }
           return <li {...props}>{suggestionName}</li>
         })}
