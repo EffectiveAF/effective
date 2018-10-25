@@ -86,9 +86,12 @@ export default function(state = initialState, action) {
     case 'TASK_SET_ASSIGNEE_FULFILLED':
     // Fallthrough
     case 'PATCH_TASK_FULFILLED':
-      const patchedTask = action.payload;
-      patchedTask.subtask_gids =
-        state.taskMap[patchedTask.gid].subtask_gids || [];
+      const t = action.payload;
+      const patchedTask = {
+        ...state.taskMap[t.gid] || {}, // Re-add local: .subtask_gids,
+                                       // .subtaskform_id, etc
+        ...t
+      };
       return Object.assign({}, state, {
         taskMap: Object.assign({}, state.taskMap, {
           [patchedTask.gid]: patchedTask

@@ -108,8 +108,8 @@ class TaskDetails extends Component {
             <div className="subtasks-ctn">
               <h4><strong>Subtasks</strong></h4>
               <ul className="subtasks-list">
-                {subtaskGids.map((gid, i)=> {
-                  return <li key={i} className="subtask-item" onClick={() => rpShowTaskDetails({taskGid: gid})}>
+                {subtaskGids.map((gid)=> {
+                  return <li key={gid} className="subtask-item" onClick={() => rpShowTaskDetails({taskGid: gid})}>
                     <FaCircleO size={8} className="fa-circle-o" />{tasks.taskMap[gid].title}
                   </li>
                 })}
@@ -119,6 +119,7 @@ class TaskDetails extends Component {
               <TaskForm
                 parentGid={task.gid}
                 key={task.gid}
+                id={task.gid}
                 autoFocus={false}
               />
             </div>
