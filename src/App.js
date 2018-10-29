@@ -25,7 +25,11 @@ class App extends Component {
           <Switch>
             {/* Temporary redirect from /; will use HomePage component */ }
             <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
-            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/dashboard" render={() => {
+              return this.props.authenticated
+                ? <Dashboard />
+                : <Redirect to="/pursuance/all" />
+            }} />
             <Route exact path="/pursuance/all" component={PublicPursuances} />
             <Route exact path="/pursuance/create" component={CreatePursuance} />
             <Route path="/pursuance/:pursuanceId" component={PursuancePage} />

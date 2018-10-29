@@ -12,6 +12,10 @@ import createPursuance from './createPursuanceReducer';
 import autoComplete from './autoCompleteReducer';
 import showSuccessToast from './showSuccessToastReducer';
 import rightPanel from './rightPanelReducer';
+import invites from './invitesReducer';
+import memberships from './membershipsReducer';
+import showPopup from './showPopupReducer';
+import publicProfiles from './publicProfilesReducer';
 
 const rootReducer = combineReducers({
   notifications: notificationsReducer,
@@ -26,7 +30,11 @@ const rootReducer = combineReducers({
   createPursuance,
   autoComplete,
   showSuccessToast,
-  rightPanel
+  rightPanel,
+  invites,
+  memberships,
+  showPopup,
+  publicProfiles,
 });
 
 export default rootReducer;

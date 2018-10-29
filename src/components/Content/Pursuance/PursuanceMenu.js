@@ -7,6 +7,8 @@ import FaCheckSquareO from 'react-icons/lib/fa/check-square-o';
 import FaCalendar from 'react-icons/lib/fa/calendar';
 import FaSitemap from 'react-icons/lib/fa/sitemap';
 import CommentsO from 'react-icons/lib/fa/comments-o';
+import FaShareSquareO from 'react-icons/lib/fa/share-square-o';
+import Planet from 'react-icons/lib/io/planet';
 // import FolderOpen from 'react-icons/lib/fa/folder-open';
 // import Group from 'react-icons/lib/fa/group';
 // import Rocket from 'react-icons/lib/fa/rocket';
@@ -42,7 +44,6 @@ const PursuanceMenu = () => {
           icon={<FaSitemap size={28} />}
         />
         <PursuanceMenuItem
-          className="pursuance-bottom-btn"
           label='Calendar'
           action='calendar'
           icon={<FaCalendar size={28} />}
@@ -65,6 +66,17 @@ const PursuanceMenu = () => {
           icon={<Rocket size={28} />}
         />
         */}
+        <PursuanceMenuItem
+          label='Invite'
+          action='invite'
+          icon={<FaShareSquareO size={28} />}
+        />
+        <PursuanceMenuItem
+          className="pursuance-bottom-btn"
+          label='Universe'
+          action='universe'
+          icon={<Planet size={28} />}
+        />
       </div>
     </ButtonGroup>
   );

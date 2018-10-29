@@ -7,15 +7,24 @@ import '../Content.css';
 class PursuanceList extends Component {
 
   getPursuanceList = () => {
-    const pursuanceArr = Object.values(this.props.pursuances);
-    return pursuanceArr.map((pursuance) => (
-      <div key={pursuance.id} className="pursuance-list-ctn">
-        <Link to={`/pursuance/${pursuance.id}`}>
-          <h3><strong>{pursuance.name}</strong></h3>
-        </Link>
-        {pursuance.mission && <p><strong>Mission:</strong> {pursuance.mission}</p>}
-      </div>
-    ));
+    const { memberships, pursuances } = this.props;
+    const membershipsArr = Object.values(memberships);
+    return membershipsArr.map((membership) => {
+      const pursuance = pursuances[membership.pursuance_id];
+      if (!pursuance) {
+        return null;
+      }
+        return (
+          <div key={pursuance.id} className="pursuance-list-ctn">
+            <div className="pursuance-description">
+              <Link to={`/pursuance/${pursuance.id}`}>
+                <h3><strong>{pursuance.name}</strong></h3>
+              </Link>
+              <p><strong>Mission:</strong> {pursuance.mission}</p>
+            </div>
+          </div>
+        )
+    })
   }
 
   render() {
@@ -27,4 +36,4 @@ class PursuanceList extends Component {
   }
 }
 
-export default connect(({ pursuances }) => ({ pursuances }))(PursuanceList);
+export default connect(({ memberships, pursuances }) => ({ memberships, pursuances }))(PursuanceList);

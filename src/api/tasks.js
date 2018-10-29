@@ -29,7 +29,9 @@ export const deleteTaskReq = task => {
 export const getTasksReq = (pursuanceId, { includeArchived = false } = {}) => {
   return postgrest
     .getJSON(
-      `/tasks?or=(pursuance_id.eq.${pursuanceId},assigned_to_pursuance_id.eq.${pursuanceId})&order=created.asc,id.asc` +
+      `/tasks?or=(pursuance_id.eq.${pursuanceId},assigned_to_pursuance_id.eq.${
+        pursuanceId
+      })&order=created.asc,id.asc` +
         (includeArchived ? '' : '&is_archived=is.false')
     )
     .then(tasks => {
@@ -55,8 +57,10 @@ const buildTaskHierarchy = (tasks, pursuanceId) => {
       if (taskMap[t.parent_task_gid]) {
         taskMap[t.parent_task_gid].subtask_gids.push(t.gid);
       } else {
-        console.log(`Task ${t.gid} ("${t.title}")'s parent ${t.parent_task_gid}` +
-                    ` not found in taskMap`);
+        console.log(
+          `Task ${t.gid} ("${t.title}")'s parent ${t.parent_task_gid}` +
+            ` not found in taskMap`
+        );
       }
     }
   }

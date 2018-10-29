@@ -14,12 +14,11 @@ class PublicPursuances extends Component {
     return (
       <div id="dashboard">
         <div id="dashboard-title">
-          <h1>All Pursuances</h1>
+          <h1>Public Pursuances</h1>
         </div>
         <div id="dash-first-row">
           <div className="dash-ctn">
             <div className="dash-box">
-              <h2 className="dash-box-title">Recently Created</h2>
               <PublicPursuanceList />
             </div>
           </div>

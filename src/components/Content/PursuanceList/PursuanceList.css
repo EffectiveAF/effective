@@ -7,6 +7,39 @@
   text-decoration: none;
 }
 
+.pursuance-list-ctn {
+  display: flex;
+}
+
 .pursuance-list-ctn a:hover {
   text-decoration: underline;
+}
+
+.pursuance-description {
+  width: 90%;
+}
+
+.pursuance-description p {
+  font-size: 16px;
+}
+
+.pursuance-join {
+  width: 10%;
+  display: flex;
+  align-items: center;
+}
+
+.pursuance-btn {
+  width: 80%;
+  border-radius: 10px;
+}
+
+.join-btn {
+  background-color: rgba(80, 179, 254, .9);
+  color: #fff;
+}
+
+.leave-btn {
+  background-color: #000;
+  color: #efefef;
 }

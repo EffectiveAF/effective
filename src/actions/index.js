@@ -10,6 +10,11 @@ import {
   patchTaskReq,
   deleteTaskReq
 } from '../api/tasks';
+import {
+  postMembershipReq,
+  getMembershipsReq,
+  deleteMembershipReq
+} from '../api/memberships';
 
 export const updateFormField = (formId, fieldId, value) => ({
   type: 'TASK_FIELD_UPDATE',
@@ -175,6 +180,10 @@ export const toggleSettingsInfoModal = () => ({
   type: 'TOGGLE_SETTINGS_INFO_MODAL'
 });
 
+export const toggleRoleInfoModal = () => ({
+  type: 'TOGGLE_ROLE_INFO_MODAL'
+});
+
 export const updatePursuanceFormField = (fieldId, value) => ({
   type: 'UPDATE_CREATE_PURSUANCE_FORM',
   fieldId,
@@ -241,4 +250,24 @@ export const userLoginSuccess = ({ username }) => ({
 
 export const userLogoutSuccess = () => ({
   type: 'USER_LOGOUT_SUCCESS'
+});
+
+export const getInvites = ({ pursuanceId }) => ({
+  type: 'GET_INVITES',
+  pursuanceId
+});
+
+export const postMembership = membership => ({
+  type: 'POST_MEMBERSHIP',
+  payload: postMembershipReq(membership)
+});
+
+export const getMemberships = filterOption => ({
+  type: 'GET_MEMBERSHIPS',
+  payload: getMembershipsReq(filterOption)
+});
+
+export const deleteMembership = membership => ({
+  type: 'DELETE_MEMBERSHIP',
+  payload: deleteMembershipReq(membership)
 });

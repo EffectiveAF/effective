@@ -6,8 +6,10 @@ import PursuanceMenu from './PursuanceMenu';
 import TaskListView from './views/TaskListView';
 import CalendarView from './views/CalendarView';
 import RolesHierarchyView from './views/RolesHierarchyView';
+import InviteView from './views/InviteView';
 import DiscussView from './views/DiscussView';
 import ParticipantsView from './views/ParticipantsView';
+import UniverseView from './views/UniverseView';
 import RightPanel from '../RightPanel/RightPanel';
 import './PursuancePage.css';
 
@@ -32,8 +34,10 @@ class PursuancePage extends Component {
               <Route exact path="/pursuance/:pursuanceId/roles" component={RolesHierarchyView} />
               <Route exact path="/pursuance/:pursuanceId/tasks" component={TaskListView} />
               <Route exact path="/pursuance/:pursuanceId/calendar" component={CalendarView} />
+              <Route exact path="/pursuance/:pursuanceId/invite" component={InviteView} />
               <Route exact path="/pursuance/:pursuanceId/discuss/task/:taskGid" component={DiscussView} />
               <Route exact path="/pursuance/:pursuanceId/participants" component={ParticipantsView} />
+              <Route exact path="/pursuance/:pursuanceId/universe" component={UniverseView} />
             </Switch>
             <RightPanel />
           </article>

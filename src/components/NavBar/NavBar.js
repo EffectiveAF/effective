@@ -6,6 +6,7 @@ import SignUp from './SignUp/SignUp';
 import LogIn from './LogIn/LogIn';
 import NotificationsModal from './NotificationsModal/NotificationsModal';
 import UserSettingsPopover from './UserSettingsPopover';
+import Planet from 'react-icons/lib/io/planet';
 import './NavBar.css';
 
 class NavBar extends Component {
@@ -30,6 +31,12 @@ class NavBar extends Component {
           <ul className="nav navbar-nav">
             <li role="presentation">
               <Link to="/dashboard">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/pursuance/all">
+                <Planet size={16} className="planet-icon"/>
+                Explore Pursuance Universe
+              </Link>
             </li>
           </ul>
           <Nav pullRight>
