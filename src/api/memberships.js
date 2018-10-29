@@ -12,13 +12,15 @@ export const getMembershipsReq = filterOption => {
   const filterVal = filterOption[filterKey];
   return postgrest
     .getJSON(`/memberships?${filterKey}=eq.${filterVal}`)
-    .then(memberships =>
-      memberships.map(membership => {
-        return {
-          [membership.pursuance_id]: membership
-        };
-      })
-    )
+    .then(memberships => {
+      const membershipsMap = {};
+      let m;
+      for (let i = 0; i < memberships.length; i++) {
+        m = memberships[i];
+        membershipsMap[m.user_username + '_' + m.pursuance_id] = m;
+      }
+      return membershipsMap;
+    })
     .catch(err => console.log('Error fetching memberships', err));
 };
 

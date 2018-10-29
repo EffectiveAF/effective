@@ -48,7 +48,7 @@ class PublicPursuanceList extends Component {
             {
               user.authenticated
               &&
-              !memberships[pursuance.id]
+              !memberships[user.username + '_' + pursuance.id]
               &&
               <button
                 className="join-btn pursuance-btn"
@@ -62,7 +62,7 @@ class PublicPursuanceList extends Component {
             {
               user.authenticated
               &&
-              memberships[pursuance.id]
+              memberships[user.username + '_' + pursuance.id]
               &&
               <button
                 className="leave-btn pursuance-btn"

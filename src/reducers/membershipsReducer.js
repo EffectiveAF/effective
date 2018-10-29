@@ -4,8 +4,9 @@ export default function(state = {}, action) {
       return state;
 
     case 'POST_MEMBERSHIP_FULFILLED':
+      const membership = action.payload;
       return Object.assign({}, state, {
-        [action.payload.pursuance_id]: action.payload
+        [membership.user_username + '_' + membership.pursuance_id]: action.payload
       });
 
     case 'POST_MEMBERSHIP_REJECTED':
@@ -15,7 +16,7 @@ export default function(state = {}, action) {
       return state;
 
     case 'GET_MEMBERSHIPS_FULFILLED':
-      return Object.assign({}, state, ...action.payload);
+      return Object.assign({}, state, action.payload);
 
     case 'GET_MEMBERSHIPS_REJECTED':
       return state;
@@ -25,7 +26,7 @@ export default function(state = {}, action) {
 
     case 'DELETE_MEMBERSHIP_FULFILLED':
       const {
-        [String(action.payload.pursuance_id)]: _,
+        [action.payload.user_username + '_' + action.payload.pursuance_id]: _,
         ...updatedState
       } = state;
       return updatedState;
