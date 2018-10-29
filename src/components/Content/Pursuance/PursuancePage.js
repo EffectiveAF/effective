@@ -5,6 +5,7 @@ import { setCurrentPursuance } from '../../../actions';
 import PursuanceMenu from './PursuanceMenu';
 import TaskListView from './views/TaskListView';
 import CalendarView from './views/CalendarView';
+import RolesHierarchyView from './views/RolesHierarchyView';
 import DiscussView from './views/DiscussView';
 import ParticipantsView from './views/ParticipantsView';
 import RightPanel from '../RightPanel/RightPanel';
@@ -28,6 +29,7 @@ class PursuancePage extends Component {
           <article>
             <Switch>
               <Route exact path="/pursuance/:pursuanceId" component={TaskListView} />
+              <Route exact path="/pursuance/:pursuanceId/roles" component={RolesHierarchyView} />
               <Route exact path="/pursuance/:pursuanceId/tasks" component={TaskListView} />
               <Route exact path="/pursuance/:pursuanceId/calendar" component={CalendarView} />
               <Route exact path="/pursuance/:pursuanceId/discuss/task/:taskGid" component={DiscussView} />

@@ -5,6 +5,7 @@ import { ButtonGroup } from 'react-bootstrap';
 import PursuanceMenuItem from './PursuanceMenuItem';
 import FaCheckSquareO from 'react-icons/lib/fa/check-square-o';
 import FaCalendar from 'react-icons/lib/fa/calendar';
+import FaSitemap from 'react-icons/lib/fa/sitemap';
 import CommentsO from 'react-icons/lib/fa/comments-o';
 // import FolderOpen from 'react-icons/lib/fa/folder-open';
 // import Group from 'react-icons/lib/fa/group';
@@ -31,9 +32,14 @@ const PursuanceMenu = () => {
           icon={<CommentsO size={28} />}
         />
         <PursuanceMenuItem
-          label='Tasks'
+          label='All Tasks'
           action='tasks'
           icon={<FaCheckSquareO size={28} />}
+        />
+        <PursuanceMenuItem
+          label='Roles'
+          action='roles'
+          icon={<FaSitemap size={28} />}
         />
         <PursuanceMenuItem
           className="pursuance-bottom-btn"
