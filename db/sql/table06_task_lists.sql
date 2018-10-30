@@ -10,6 +10,10 @@ CREATE TABLE task_lists (
     assigned_to_pursuance_id integer REFERENCES pursuances(id),
     due_date         timestamp WITH time zone,
     created          timestamp WITH time zone NOT NULL DEFAULT now(),
+    /* pursuance_id  integer NOT NULL REFERENCES pursuances(id) */
+    /* parent_task_list_id integer REFERENCES task_lists(id) */
+    /* is_role       bool    NOT NULL */
+    /* is_milestone  bool    NOT NULL DEFAULT false */
     CHECK ((LENGTH(name) > 0 AND LENGTH(name_enc) = 0)
            OR
            (LENGTH(name) = 0 AND LENGTH(name_enc) > 0)),
