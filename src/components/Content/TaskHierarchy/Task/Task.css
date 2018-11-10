@@ -29,6 +29,32 @@
   border-radius: 5px;
 }
 
+.toggle-icon-ctn-intasklist {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-right: 5px;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.toggle-icon-ctn-intasklist.status-Done {
+  border: 2px solid #0c0;
+}
+
+.toggle-icon-ctn-intasklist.status-Done svg {
+  color: #0c0;
+}
+
+.task-icon-in-task-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 3px;
+}
+
 .toggle-icon-ctn-disable {
   background-color: #333333;
   width: 26px;
@@ -81,6 +107,13 @@
   overflow-wrap: break-word;
 }
 
+li.in-task-list .task-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 2px;
+}
+
 .task-title-buffer {
   display: flex;
   flex: 1;
@@ -105,6 +138,16 @@
   width: 80px;
   min-width: 80px;
   align-items: center;
+}
+
+.in-task-list.task-icons-ctn {
+  width: 122px;
+  min-width: 122px;
+}
+
+.in-task-list-narrow.task-icons-ctn {
+  width: 40px;
+  min-width: 40px;
 }
 
 .icon-ctn {

@@ -31,3 +31,8 @@ export const showAssignee = (task, currentPursuanceId, pursuances) => {
 export const isRootTaskInPursuance = (task, pursuanceId) => {
   return !task.parent_task_gid || task.assigned_to_pursuance_id === pursuanceId;
 };
+
+export const isRootTaskListInPursuance = (taskList, pursuanceId) => {
+  return !taskList.parent_task_list_id ||
+    taskList.assigned_to_pursuance_id === pursuanceId;
+};

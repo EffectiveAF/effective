@@ -1,11 +1,34 @@
 import * as postgrest from './postgrest';
 import { isRootTaskInPursuance } from '../utils/tasks';
+import { patchTaskListReq } from './task_lists';
 
 export const postTaskReq = task => {
   return postgrest
     .postJSON('/tasks', task, { Prefer: 'return=representation' })
     .then(taskJSON => taskJSON[0])
     .catch(err => console.log('Error posting task:', err));
+};
+
+const formatArray = (strArr) => {
+  // PostgREST hack; see
+  // https://github.com/PostgREST/postgrest/issues/328#issuecomment-151998658
+  return '{' + strArr.join(',') + '}';
+}
+
+export const postTaskToTaskListReq = (task, taskList) => {
+  return postgrest
+    .postJSON('/tasks', task, { Prefer: 'return=representation' })
+    .then(async (taskJSON) => {
+      const updatedTaskList = await patchTaskListReq({
+        id: taskList.id,
+        task_gids: formatArray([...taskList.task_gids, taskJSON[0].gid]),
+      })
+      return {
+        newTask: taskJSON[0],
+        updatedTaskList: updatedTaskList,
+      }
+    })
+    .catch(err => console.log('Error posting task to task list:', err));
 };
 
 export const patchTaskReq = task => {

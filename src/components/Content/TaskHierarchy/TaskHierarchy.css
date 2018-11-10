@@ -67,6 +67,10 @@ ul {
   padding-left: 0px;
 }
 
+ul ul.tasklist-ul-ctn {
+  padding-left: 35px;
+}
+
 @media (max-width: 1279px) {
   #task-hierarchy .hide-small {
     display: none;

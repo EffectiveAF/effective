@@ -15,7 +15,7 @@ export default function(state = initialState, action) {
         '4e99889a-850e-11e8-80a7-00163e5e6c13': {
           id: '4e99889a-850e-11e8-80a7-00163e5e6c13',
           pursuance_id: 33,
-          permissions_level: 'NormalUser',
+          permissions_level: 'Assigner',
           purpose: 'Sending to in-house volunteers via Slack',
           invite_url:
             'https://app.pursuanceproject.org/invite/4e99889a-850e-11e8-80a7-00163e5e6c13#MammalKimonoJazzEquipmentJellyKryptonGamekeeperFossilGiddinessRearrangeArrowhead'
@@ -23,7 +23,7 @@ export default function(state = initialState, action) {
         '5e99889a-850e-11e8-80a7-00163e5e6c13': {
           id: '5e99889a-850e-11e8-80a7-00163e5e6c13',
           pursuance_id: 33,
-          permissions_level: 'Viewer',
+          permissions_level: 'Contributor',
           purpose: 'Posting to mailing list and website',
           invite_url:
             'https://app.pursuanceproject.org/invite/5e99889a-850e-11e8-80a7-00163e5e6c13#MammalKimonoJazzEquipmentJellyKryptonGamekeeperFossilGiddinessRearrangeArrowhead'

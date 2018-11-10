@@ -8,6 +8,7 @@ import TiPlus from 'react-icons/lib/ti/plus';
 import TiMinus from 'react-icons/lib/ti/minus';
 import TiFlowChildren from 'react-icons/lib/ti/flow-children';
 import FaCommentsO from 'react-icons/lib/fa/comments-o';
+import FaCheck from 'react-icons/lib/fa/check';
 import TaskForm from '../../TaskManager/TaskForm/TaskForm';
 import TaskStatus from '../../TaskStatus/TaskStatus';
 import TaskAssigner from './TaskAssigner/TaskAssigner';
@@ -27,8 +28,7 @@ class RawTask extends Component {
     super(props);
 
     this.state = {
-      showChildren: true,
-      showAssigneeInput: false
+      showChildren: true
     };
   }
 
@@ -69,7 +69,10 @@ class RawTask extends Component {
   }
 
   mapSubTasks = (task) => {
-    const { pursuances, autoComplete, taskMap, taskForm } = this.props;
+    const { pursuances, autoComplete, taskMap, taskForm, isInTaskList } = this.props;
+    if (isInTaskList) {
+      return null;
+    }
     return task.subtask_gids.map((gid) => {
       return (
           <Task
@@ -84,7 +87,26 @@ class RawTask extends Component {
     });
   }
 
+  toggleDone = () => {
+    const { taskData, patchTask } = this.props;
+    if (taskData.status === 'Done') {
+      patchTask({ gid: taskData.gid, status: 'New' });
+    } else {
+      patchTask({ gid: taskData.gid, status: 'Done' });
+    }
+  }
+
   getTaskIcon = (task, showChildren) => {
+    const { isInTaskList } = this.props;
+
+    if (isInTaskList) {
+      return (
+        <div className={"toggle-icon-ctn-intasklist status-" + task.status} onClick={this.toggleDone}>
+          <FaCheck className={"check-toggle-" + task.status} size={22} />
+        </div>
+      );
+    }
+
     if (task.subtask_gids.length < 1) {
       return (
         <div className="toggle-icon-ctn-disable" />
@@ -117,10 +139,10 @@ class RawTask extends Component {
   }
 
   showTitle = (task) => {
-    const { currentPursuanceId } = this.props;
+    const { currentPursuanceId, isInTaskList } = this.props;
     const statusClassName = this.getStatusClassName(task);
 
-    if (!isRootTaskInPursuance(task, currentPursuanceId)) {
+    if (isInTaskList || !isRootTaskInPursuance(task, currentPursuanceId)) {
       return (
         <div className={statusClassName}>{task.title}</div>
       );
@@ -155,45 +177,61 @@ class RawTask extends Component {
   }
 
   render() {
-    const { pursuances, taskData, currentPursuanceId, rightPanel } = this.props;
+    const { pursuances, taskData, currentPursuanceId, rightPanel, isInTaskList } = this.props;
     const { showChildren } = this.state;
     const task = taskData;
+    if (!task) {
+      return null;
+    }
     const { placeholder, assignedTo } = showAssignee(task, currentPursuanceId, pursuances);
     const highlightTask = rightPanel.show && rightPanel.taskGid === taskData.gid;
 
     return (
-      <li className="li-task-ctn">
+      <li className={"li-task-ctn " + (isInTaskList ? 'in-task-list' : '')}>
         <div className={highlightTask ? 'task-ctn highlight' : 'task-ctn'}>
-          <div className="toggle-ctn">
-            {this.getTaskIcon(task, showChildren)}
-          </div>
+          {!isInTaskList && (
+            <div className="toggle-ctn">
+              {this.getTaskIcon(task, showChildren)}
+            </div>
+          )}
+          {isInTaskList && (
+            <div className="task-icon-in-task-list">
+              {this.getTaskIcon(task, showChildren)}
+            </div>
+          )}
           <div className="task-row-ctn">
             <div className="task-title" onClick={this.selectTaskInHierarchy}>
               {this.showTitle(task)}
             </div>
             <div className="task-title-buffer" onClick={this.selectTaskInHierarchy}>
             </div>
-            <div className="task-icons-ctn">
+            <div className={"task-icons-ctn " + (isInTaskList ? 'in-task-list-narrow' : '')}>
+              {!isInTaskList && (
+                <OverlayTrigger
+                  placement="bottom"
+                  overlay={this.getTooltip('hands-down')}
+                >
+                  <div id={'create-subtask-' + task.gid} className="icon-ctn create-subtask" onClick={this.toggleNewForm}>
+                    <TiFlowChildren size={20} />
+                  </div>
+                </OverlayTrigger>
+              )}
               <OverlayTrigger
                 placement="bottom"
-                overlay={this.getTooltip('hands-down')}>
-                <div id={'create-subtask-' + task.gid} className="icon-ctn create-subtask" onClick={this.toggleNewForm}>
-                  <TiFlowChildren size={20} />
-                </div>
-              </OverlayTrigger>
-              <OverlayTrigger
-                placement="bottom"
-                overlay={this.getTooltip('chat')}>
+                overlay={this.getTooltip('chat')}
+              >
                 <div id={'discuss-task-' + task.gid} className="icon-ctn discuss-task hide-small" onClick={this.redirectToDiscuss}>
                   <FaCommentsO size={20} />
                 </div>
               </OverlayTrigger>
             </div>
-            <TaskStatus
-              gid={task.gid}
-              status={task.status}
-              patchTask={this.props.patchTask}
-            />
+            {!isInTaskList && (
+              <TaskStatus
+                gid={task.gid}
+                status={task.status}
+                patchTask={this.props.patchTask}
+              />
+            )}
             <div className="task-assigned-to hide-small">
               <TaskAssigner
                 taskGid={task.gid}

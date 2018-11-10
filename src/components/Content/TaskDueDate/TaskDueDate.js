@@ -28,18 +28,28 @@ class TaskDueDate extends Component {
   }
 
   onSubmit = (date) => {
-    const { id, patchTask } = this.props;
+    const { id, patchTask, patchTaskList, isInTaskList } = this.props;
+    const dueDate = date ? moment(date).format() : null;
+
+    if (isInTaskList) {
+      patchTaskList({
+        id,
+        due_date: dueDate,
+      });
+      return;
+    }
+
     patchTask({
       gid: id,
-      due_date: date ? moment(date).format() : null
+      due_date: dueDate
     })
     this.hideInput();
   }
 
   render() {
-    const { id, taskData, autoFocus } = this.props;
+    const { id, taskData, taskList, autoFocus } = this.props;
     const { showInput } = this.state;
-    const due_date = taskData.due_date;
+    const due_date = (taskData || taskList).due_date;
 
     return (
       <div className="task-due-date hide-small" onClick={this.onClick}>

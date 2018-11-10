@@ -15,6 +15,7 @@ import FaCommentsO from 'react-icons/lib/fa/comments-o';
 import FaVideoCamera from 'react-icons/lib/fa/video-camera';
 import { ToastContainer, toast } from 'react-toastify';
 import RoleInfoModal from './RoleInfoModal/RoleInfoModal';
+import InviteHierarchy from '../InviteHierarchy/InviteHierarchy.js';
 import 'react-toastify/dist/ReactToastify.css';
 import './Invite.css';
 import '../Content.css';
@@ -209,38 +210,14 @@ class Invite extends Component {
               }
             </h2>
           </div>
-          <Tabs defaultActiveKey={2} id="invite-tabs">
-            <Tab eventKey={1} title="Recruit by Skill Set" className="recruit">
-              <div className="recruit-title">
-                <h3>Recruit Volunteers by their Skill Set and Interests</h3>
-              </div>
-              <div id="recruit-form-skills">
-                <label>Skills:</label>
-                <input
-                  type="text"
-                  placeholder="Research Programming:React"
-                  autoFocus
-                  onChange={this.skillInput}
-                />
-              </div>
-              <div id="recruit-form-interests">
-                <label>Interests:</label>
-                <input
-                  type="text"
-                  placeholder="PrisonReform Abortion:ProChoice"
-                  onChange={this.interestInput}
-                />
-              </div>
-              <br />
-              <div className="recruit-title">
-                <h4>Search Results</h4>
-              </div>
-              <div className="recruit-search-results">
-                {this.displayRecruitSearchResults()}
-              </div>
+          <Tabs defaultActiveKey={0} id="invite-tabs">
+            <Tab eventKey={0} title="Invite Tree" className="invite-hierarchy">
+              <InviteHierarchy
+                pursuanceId={currentPursuanceId}
+              />
             </Tab>
 
-            <Tab eventKey={2} title="Create Invite Links" className="invite-links">
+            <Tab eventKey={1} title="Create Invite Links" className="invite-links">
               <h3>Create New Invite Link</h3>
               <div id="invites-form">
                 <input
@@ -271,6 +248,36 @@ class Invite extends Component {
                 <div className="invite-links">
                   {this.displayInvites(invites)}
                 </div>
+              </div>
+            </Tab>
+
+            <Tab eventKey={2} title="Recruit by Skill Set" className="recruit">
+              <div className="recruit-title">
+                <h3>Recruit Volunteers by their Skill Set and Interests</h3>
+              </div>
+              <div id="recruit-form-skills">
+                <label>Skills:</label>
+                <input
+                  type="text"
+                  placeholder="Research Programming:React"
+                  autoFocus
+                  onChange={this.skillInput}
+                />
+              </div>
+              <div id="recruit-form-interests">
+                <label>Interests:</label>
+                <input
+                  type="text"
+                  placeholder="PrisonReform Abortion:ProChoice"
+                  onChange={this.interestInput}
+                />
+              </div>
+              <br />
+              <div className="recruit-title">
+                <h4>Search Results</h4>
+              </div>
+              <div className="recruit-search-results">
+                {this.displayRecruitSearchResults()}
               </div>
             </Tab>
           </Tabs>

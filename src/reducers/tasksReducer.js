@@ -27,6 +27,15 @@ export default function(state = initialState, action) {
         recentlyAddedTask: action.payload
       });
 
+    case 'POST_TASK_TO_TASK_LIST_FULFILLED': {
+      const { newTask } = action.payload;
+      return Object.assign({}, state, {
+        taskMap: Object.assign({}, state.taskMap, {
+          [newTask.gid]: newTask,
+        })
+      });
+    }
+
     case 'POST_TASK_REJECTED':
       return state;
 

@@ -1,0 +1,22 @@
+#calendar {
+  margin-right: 50px;
+}
+
+#big-calendar {
+  color: white;
+  height: calc(100vh - 170px);
+  min-height: 500px;
+  max-width: calc(100vw - 210px);
+}
+
+@media (max-width: 1279px) {
+  #big-calendar {
+    max-width: calc(100vw - 150px);
+  }
+}
+
+@media (max-width: 639px) {
+  #big-calendar {
+    max-width: calc(100vw - 64px);
+  }
+}

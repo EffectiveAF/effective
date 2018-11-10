@@ -1,3 +1,5 @@
+BEGIN;
+
 ALTER TABLE task_lists
     ADD COLUMN pursuance_id        integer REFERENCES pursuances(id),
     ADD COLUMN parent_task_list_id integer REFERENCES task_lists(id),
@@ -11,3 +13,5 @@ ALTER TABLE task_lists
     ALTER COLUMN pursuance_id SET NOT NULL,
     ALTER COLUMN is_role SET NOT NULL,
     ALTER COLUMN is_milestone SET NOT NULL;
+
+COMMIT;

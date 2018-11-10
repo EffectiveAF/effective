@@ -2,33 +2,24 @@ import React, { Component } from 'react';
 import generateId from '../../../../utils/generateId';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import AssignerSuggestions from './Suggestions/AssignerSuggestions';
-import AssignerInput from './AssignerInput/AssignerInput';
-import DueDatePicker from './DatePicker/DatePicker';
+import AssignerSuggestions from '../../TaskManager/TaskForm/Suggestions/AssignerSuggestions';
+import AssignerInput from '../../TaskManager/TaskForm/AssignerInput/AssignerInput';
+import DueDatePicker from '../../TaskManager/TaskForm/DatePicker/DatePicker';
 import { PURSUANCE_DISPLAY_PREFIX } from '../../../../constants';
 import {
   updateFormField,
   clearTaskFormFields,
-  setTaskFormParentGid,
-  postTask,
-  postTaskToTaskList,
+  postTaskList,
 } from '../../../../actions';
-import './TaskForm.css';
+import './TaskListForm.css';
 
-class TaskForm extends Component {
+class TaskListForm extends Component {
 
   componentWillMount() {
-    const { parentGid, updateFormField, id } = this.props;
-    const { isInTaskList, tasks } = this.props;
-    if (isInTaskList) {
-      // Use `id` from props or create new one
-      this.id = id || generateId('task');
-      updateFormField(this.id, 'parent_task_gid', tasks.rootTaskGids[0] || null);
-      return;
-    }
+    const { parentTaskListId, updateFormField, id } = this.props;
     // Use `id` from props or create new one
-    this.id = id || generateId('task');
-    updateFormField(this.id, 'parent_task_gid', parentGid || null);
+    this.id = id || generateId('taskList');
+    updateFormField(this.id, 'parent_task_list_id', parentTaskListId || null);
   }
 
   getClassName = () => {
@@ -36,41 +27,6 @@ class TaskForm extends Component {
       return 'task-form-ctn';
     } else {
       return 'task-form-ctn nested-form';
-    }
-  }
-
-  onTitleKeyDown = (e) => {
-    const { tasks, taskForm, setTaskFormParentGid, isInTaskList } = this.props;
-    if (isInTaskList) {
-      return;
-    }
-    const parentGid = taskForm[this.id].parent_task_gid;
-    const { taskMap } = tasks;
-    const title = taskForm[this.id].title || '';
-    if (e.key === 'Tab' && title.length === 0) {
-      e.preventDefault();
-      let newParentGid;
-      const parent = taskMap[parentGid];
-      if (e.nativeEvent.shiftKey) {
-        // Unindent
-        if (parent && parent.parent_task_gid) {
-          newParentGid = taskMap[parent.parent_task_gid].gid;
-        } else {
-          newParentGid = null;
-        }
-      } else {
-        // Indent
-        if (parent) {
-          const numChildren = parent.subtask_gids.length;
-          if (numChildren > 0) {
-            newParentGid = parent.subtask_gids[numChildren-1];
-          }
-        }
-      }
-      console.log(this.id, 'newParentGid:', newParentGid);
-      if (newParentGid) {
-        setTaskFormParentGid(this.id, newParentGid, parentGid);
-      }
     }
   }
 
@@ -91,44 +47,38 @@ class TaskForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const {
-      postTask, taskForm, currentPursuanceId, pursuances, clearTaskFormFields,
-      isInTaskList, containingTaskList, postTaskToTaskList
+      postTaskList, taskForm, currentPursuanceId, pursuances,
+      clearTaskFormFields, isInTaskList
     } = this.props;
-    const task = taskForm[this.id];
-    const assignedTo = task.assigned_to;
-    if (!task) {
-      console.log("Thou shalt not submit empty TaskForm!");
+    const taskList = taskForm[this.id];
+    const assignedTo = taskList.assigned_to;
+    if (!taskList.name) {
+      console.log("Thou shalt not submit empty TaskListForm!");
       return;
     }
     if (assignedTo && assignedTo.startsWith(PURSUANCE_DISPLAY_PREFIX)) {
       for (var key in pursuances) {
         if (pursuances[key].suggestionName === assignedTo) {
-          task.assigned_to_pursuance_id = pursuances[key].id;
-          delete task.assigned_to;
+          taskList.assigned_to_pursuance_id = pursuances[key].id;
+          delete taskList.assigned_to;
           break;
         }
       }
     }
-    task.pursuance_id = currentPursuanceId;
-    if (task.due_date_raw) {
-      task.due_date = moment(task.due_date_raw).format();
+    taskList.pursuance_id = currentPursuanceId;
+    if (taskList.due_date_raw) {
+      taskList.due_date = moment(taskList.due_date_raw).format();
     }
-    delete task.due_date_raw;
+    delete taskList.due_date_raw;
 
-    // TODO: Chain postTask* and clearTaskFormFields together using a
-    // promise or RxJS
-    if (!isInTaskList) {
-      postTask(task);
-    } else {
-      const taskList = {
-        id: containingTaskList.id,
-        task_gids: containingTaskList.task_gids,
-      }
-      postTaskToTaskList(task, taskList);
-    }
+    // TODO(elimisteve): Make configurable so users can make task
+    // lists that are not roles
+    taskList.is_role = true;
+
+    postTaskList(taskList);
     clearTaskFormFields(this.id, isInTaskList);
 
-    this.titleRef.focus();
+    this.nameRef.focus();
   }
 
   focusDatePicker = () => {
@@ -137,7 +87,7 @@ class TaskForm extends Component {
 
   render() {
     const { taskForm, autoComplete, autoFocus } = this.props;
-    const { title, assigned_to, due_date_raw } = taskForm[this.id] || {};
+    const { name, assigned_to, due_date_raw } = taskForm[this.id] || {};
     return (
       <div className={this.getClassName()}>
         <form className="task-form" name={this.id} autoComplete="off">
@@ -146,13 +96,12 @@ class TaskForm extends Component {
               id="input-task-title"
               type="text"
               className="form-control"
-              placeholder="Task Title"
-              name={'title'}
-              value={title || ''}
+              placeholder="Role Name / Position Title"
+              name={'name'}
+              value={name || ''}
               autoFocus={autoFocus !== false}
-              ref={(input) => this.titleRef = input}
+              ref={(input) => this.nameRef = input}
               onChange={this.onChange}
-              onKeyDown={this.onTitleKeyDown}
               maxLength={200}
             />
           </div>
@@ -194,7 +143,5 @@ export default connect(({ taskForm, currentPursuanceId, pursuances, tasks, autoC
   ({ taskForm, currentPursuanceId, pursuances, tasks, autoComplete }), {
    updateFormField,
    clearTaskFormFields,
-   setTaskFormParentGid,
-   postTask,
-   postTaskToTaskList,
-})(TaskForm);
+   postTaskList,
+})(TaskListForm);

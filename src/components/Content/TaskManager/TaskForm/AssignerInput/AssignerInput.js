@@ -11,7 +11,8 @@ import {
   addSuggestion,
   upSuggestion,
   downSuggestion,
-  setTaskAssignee
+  setTaskAssignee,
+  setTaskListAssignee,
 } from '../../../../../actions';
 
 const AssignerInput = (props) => {
@@ -33,6 +34,9 @@ const AssignerInput = (props) => {
     editMode,
     hideEditAssignee,
     setTaskAssignee,
+    setTaskListAssignee,
+    isInTaskList,
+    taskListId,
     placeholder,
     assignedTo
   } = props;
@@ -47,7 +51,7 @@ const AssignerInput = (props) => {
     const { value, name } = e.target;
     const suggestions = onlyShowUsers() ? users : Object.assign({}, pursuances, users);
     if (suggestions[assignedTo]) {
-      delete suggestions[assignedTo]
+      delete suggestions[assignedTo];
     }
     delete suggestions[currentPursuanceId];
     updateFormField(formId, name, value);
@@ -59,10 +63,28 @@ const AssignerInput = (props) => {
     updateFormField(formId, name, value);
     const suggestions = onlyShowUsers() ? users : Object.assign({}, pursuances, users);
     if (suggestions[assignedTo]) {
-      delete suggestions[assignedTo]
+      delete suggestions[assignedTo];
     }
     delete suggestions[currentPursuanceId];
     startSuggestions(e.target.value, filterSuggestion, suggestions, formId);
+  }
+
+  const _baseTask = () => {
+    const patchedTask = {
+      gid: formId
+    };
+    if (isInTaskList) {
+      patchedTask.id = taskListId;
+    }
+    return patchedTask;
+  }
+
+  const _setAssignee = (patchedTask) => {
+    if (isInTaskList) {
+      setTaskListAssignee(patchedTask);
+    } else {
+      setTaskAssignee(patchedTask);
+    }
   }
 
   const onKeyDown = (e) => {
@@ -78,9 +100,7 @@ const AssignerInput = (props) => {
       e.preventDefault();
       const { suggestionName } = suggestion;
       if (editMode) {
-        const patchedTask = {
-          gid: formId
-        };
+        const patchedTask = _baseTask();
         if (suggestionName.startsWith(PURSUANCE_DISPLAY_PREFIX)) {
           patchedTask.assigned_to_pursuance_id = suggestion.id;
           patchedTask.assigned_to = null;
@@ -92,8 +112,8 @@ const AssignerInput = (props) => {
             // Assigning this outsourced-to-us task to a member of the
             // current pursuance
             patchedTask.assigned_to = suggestionName;
-          }
-        setTaskAssignee(patchedTask);
+        }
+        _setAssignee(patchedTask);
         hideEditAssignee();
       } else {
         addSuggestion(suggestionName, formId);
@@ -121,14 +141,14 @@ const AssignerInput = (props) => {
   }
 
   const clearAssignee = () => {
-    const patchedTask = {
-      gid: formId,
-      assigned_to: null
-    }
+    const patchedTask = _baseTask();
+    patchedTask.assigned_to = null;
+
     if (placeholder && placeholder[0] === '(') {
       patchedTask.assigned_to_pursuance_id = null;
     }
-    setTaskAssignee(patchedTask);
+
+    _setAssignee(patchedTask);
   }
 
   let assigned_to = taskForm[formId] ? taskForm[formId].assigned_to : '';
@@ -165,12 +185,13 @@ const AssignerInput = (props) => {
 }
 
 export default connect(({ pursuances, currentPursuanceId, users, autoComplete, taskForm }) =>
-  ({ pursuances, currentPursuanceId, users, autoComplete, taskForm}), {
+  ({ pursuances, currentPursuanceId, users, autoComplete, taskForm }), {
    updateFormField,
    startSuggestions,
    stopSuggestions,
    upSuggestion,
    downSuggestion,
    addSuggestion,
-   setTaskAssignee
+   setTaskAssignee,
+   setTaskListAssignee,
 })(AssignerInput);

@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { ButtonGroup } from 'react-bootstrap';
 import PursuanceMenuItem from './PursuanceMenuItem';
+import TiFlowChildren from 'react-icons/lib/ti/flow-children';
 import FaCheckSquareO from 'react-icons/lib/fa/check-square-o';
 import FaCalendar from 'react-icons/lib/fa/calendar';
 import FaSitemap from 'react-icons/lib/fa/sitemap';
 import CommentsO from 'react-icons/lib/fa/comments-o';
-import FaShareSquareO from 'react-icons/lib/fa/share-square-o';
-import Planet from 'react-icons/lib/io/planet';
+// import Planet from 'react-icons/lib/io/planet';
 // import FolderOpen from 'react-icons/lib/fa/folder-open';
-// import Group from 'react-icons/lib/fa/group';
+import Group from 'react-icons/lib/fa/group';
 // import Rocket from 'react-icons/lib/fa/rocket';
 // import PlusCircle from 'react-icons/lib/fa/plus-circle';
 import './PursuanceMenu.css';
@@ -34,21 +34,31 @@ const PursuanceMenu = () => {
           icon={<CommentsO size={28} />}
         />
         <PursuanceMenuItem
-          label='All Tasks'
+          label='My Tasks'
           action='tasks'
           icon={<FaCheckSquareO size={28} />}
         />
         <PursuanceMenuItem
-          label='Roles'
-          action='roles'
-          icon={<FaSitemap size={28} />}
+          label='All Tasks'
+          action='tasks'
+          icon={<TiFlowChildren size={28} />}
         />
         <PursuanceMenuItem
           label='Calendar'
           action='calendar'
           icon={<FaCalendar size={28} />}
         />
+        <PursuanceMenuItem
+          label='Roles'
+          action='roles'
+          icon={<FaSitemap size={28} />}
+        />
         {/*
+        <PursuanceMenuItem
+          label='All Members'
+          action='tasks'
+          icon={<TiFlowChildren size={28} />}
+        />
         <PursuanceMenuItem
           label='Files & Docs'
           action='docs'
@@ -67,16 +77,18 @@ const PursuanceMenu = () => {
         />
         */}
         <PursuanceMenuItem
-          label='Invite'
-          action='invite'
-          icon={<FaShareSquareO size={28} />}
-        />
-        <PursuanceMenuItem
           className="pursuance-bottom-btn"
+          label='Members'
+          action='members'
+          icon={<Group size={28} />}
+        />
+        {/*
+        <PursuanceMenuItem
           label='Universe'
           action='universe'
           icon={<Planet size={28} />}
         />
+        */}
       </div>
     </ButtonGroup>
   );

@@ -8,7 +8,7 @@ class PursuanceList extends Component {
 
   getPursuanceList = () => {
     const { memberships, pursuances } = this.props;
-    const membershipsArr = Object.values(memberships);
+    const membershipsArr = Object.values(memberships.membershipMap);
     return membershipsArr.map((membership) => {
       const pursuance = pursuances[membership.pursuance_id];
       if (!pursuance) {

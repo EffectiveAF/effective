@@ -26,13 +26,16 @@ class TaskAssigner extends Component {
   }
 
   showSuggestions = () => {
-    const { autoComplete, taskGid } = this.props;
-    return autoComplete.suggestions && taskGid === autoComplete.suggestionForm;
+    const { autoComplete, taskGid, taskListGid } = this.props;
+    return autoComplete.suggestions && (
+      taskGid === autoComplete.suggestionForm ||
+        taskListGid === autoComplete.suggestionForm
+    );
   }
 
   render() {
     const { showAssigneeInput } = this.state;
-    const { taskGid, placeholder, assignedTo } = this.props;
+    const { taskGid, taskListGid, taskListId, placeholder, assignedTo } = this.props;
     return (
       <div className="task-assigned-to hide-small">
           {
@@ -42,13 +45,17 @@ class TaskAssigner extends Component {
                 this.showSuggestions()
                  &&
                  <AssignerSuggestions
-                   suggestionForm={taskGid}
+                   isInTaskList={!!taskListGid}
+                   taskListId={taskListId}
+                   suggestionForm={taskGid || taskListGid}
                    editMode={true}
                    hideEditAssignee={this.hideEditAssignee}
                  />
                }
               <AssignerInput
-                formId={taskGid}
+                isInTaskList={!!taskListGid}
+                taskListId={taskListId}
+                formId={taskGid || taskListGid}
                 editMode={true}
                 hideEditAssignee={this.hideEditAssignee}
                 placeholder={placeholder}
