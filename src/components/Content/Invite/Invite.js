@@ -16,6 +16,7 @@ import FaVideoCamera from 'react-icons/lib/fa/video-camera';
 import { ToastContainer, toast } from 'react-toastify';
 import RoleInfoModal from './RoleInfoModal/RoleInfoModal';
 import InviteHierarchy from '../InviteHierarchy/InviteHierarchy.js';
+import { VALID_PERMISSIONS_LEVELS } from '../MemberHierarchy/MemberPermissionsLevel.js';
 import 'react-toastify/dist/ReactToastify.css';
 import './Invite.css';
 import '../Content.css';
@@ -83,13 +84,15 @@ class Invite extends Component {
   displayRecruitSearchResults = () => {
     const { publicProfiles } = this.props;
     const { invitesSent } = this.state;
-    return publicProfiles.map(profile => {
+    let numMatches = 0;
+    const results = publicProfiles.map(profile => {
       if (this.displayProfile(profile)) {
+        numMatches++;
         return (
           <div className="profile" key={profile.id}>
             <div>
               <div className="profile-name-ctn">
-                <strong className="profile-name">@{profile.name}</strong>
+                <strong className="profile-username">@{profile.username}</strong>
                 <FaCommentsO size={34} className="icon" style={{marginTop: '0px'}} />
                 <FaVideoCamera size={34} className="icon" style={{marginTop: '0px'}} />
               </div>
@@ -97,7 +100,7 @@ class Invite extends Component {
               <ul><strong>Interests:</strong>{profile.interests.map(interest => (<li key={interest}>{interest}</li>))}</ul>
             </div>
             <div>
-              {this.displayPermissionsSelect()}
+              {this.displayPermissionsSelect('Trainee')}
               {invitesSent[profile.id] && (
                 <button
                   className="btn btn-danger"
@@ -119,18 +122,18 @@ class Invite extends Component {
       }
       return null;
     });
+    return {
+      numMatches,
+      results,
+    }
   }
 
-  displayPermissionsSelect = () => {
+  displayPermissionsSelect = (defaultLevel = 'Contributor') => {
     return (
-      <select defaultValue="NormalUser">
-        <option value="Admin">Admin</option>
-        <option value="AssistantAdmin">Assistant Admin</option>
-        <option value="Recruiter">Recruiter</option>
-        <option value="Assigner">Assigner</option>
-        <option value="NormalUser">Normal User</option>
-        <option value="Viewer">Viewer</option>
-        <option value="Untrusted">(Untrusted)</option>
+      <select defaultValue={defaultLevel}>
+        {VALID_PERMISSIONS_LEVELS.map(level =>
+          <option key={level} value={level}>{level}</option>
+        )}
       </select>
     )
   }
@@ -138,12 +141,35 @@ class Invite extends Component {
   displayExpireSelect = () => {
     return (
       <select defaultValue="14d">
-        <option value="never">Never</option>
-        <option value="30d">30 days</option>
-        <option value="14d">14 days</option>
-        <option value="7d">7 days</option>
-        <option value="1d">1 day</option>
         <option value="10m">10 minutes</option>
+        <option value="1d">1 day</option>
+        <option value="7d">7 days</option>
+        <option value="14d">14 days</option>
+        <option value="30d">30 days</option>
+        <option value="never">Never</option>
+      </select>
+    )
+  }
+
+  sortByCreated = (tlist1, tlist2) => {
+    // return new Date(tlist1.created) < new Date(tlist2.created);
+    return tlist1.id < tlist2.id;
+  }
+
+  displayRoleSelect = () => {
+    const { currentPursuanceId, taskLists } = this.props;
+    const roles = Object.values(taskLists.taskListMap)
+      .filter(taskList => {
+        return taskList.is_role && taskList.pursuance_id === currentPursuanceId;
+      })
+      .map(taskList =>
+        <option key={taskList.id} value={taskList.id}>{taskList.name}</option>
+      )
+    roles.sort(this.sortByCreated);
+    return (
+      <select>
+        <option value={null}></option>
+        {roles}
       </select>
     )
   }
@@ -163,7 +189,7 @@ class Invite extends Component {
             {invite.purpose}
           </div>
           <div className="invite-permissions-level">
-            <span className='title'>Role:</span>
+            <span className='title'>Permissions Level:</span>
             <span className='value'>{invite.permissions_level.replace(/([a-z])([A-Z])/g, "$1 $2")}</span>
           </div>
           <div className="invite-copy-link">
@@ -198,6 +224,7 @@ class Invite extends Component {
   render() {
     const { pursuances, currentPursuanceId, toggleRoleInfoModal } = this.props;
     const invites = this.getInvitesFromRedux();
+    const searchResults = this.displayRecruitSearchResults();
 
     return (
       <div className="content">
@@ -226,14 +253,18 @@ class Invite extends Component {
                   autoFocus
                 />
                 <div className="invites-invite-as">
-                  <label>Invite as:</label>
+                  <label>Permissions:</label>
                   {this.displayPermissionsSelect()}
                   <div className='hint' onClick={toggleRoleInfoModal}>
                     {<FaQuestionCircle size={20} />}
                   </div>
                 </div>
+                <div className="invites-role">
+                  <label>Invite into role:</label>
+                  {this.displayRoleSelect()}
+                </div>
                 <div className="invites-expire">
-                  <label>Expire after:</label>
+                  <label>Invite link expires after:</label>
                   {this.displayExpireSelect()}
                 </div>
                 <button
@@ -274,10 +305,10 @@ class Invite extends Component {
               </div>
               <br />
               <div className="recruit-title">
-                <h4>Search Results</h4>
+                <h4>Search Results: {searchResults.numMatches}</h4>
               </div>
               <div className="recruit-search-results">
-                {this.displayRecruitSearchResults()}
+                {searchResults.results}
               </div>
             </Tab>
           </Tabs>
@@ -288,8 +319,8 @@ class Invite extends Component {
   }
 }
 
-export default connect(({ pursuances, currentPursuanceId, invites, publicProfiles}) =>
-  ({ pursuances, currentPursuanceId, invites, publicProfiles }), {
+export default connect(({ pursuances, currentPursuanceId, invites, publicProfiles, taskLists }) =>
+  ({ pursuances, currentPursuanceId, invites, publicProfiles, taskLists }), {
     getPursuances,
     getInvites,
     rpShowTaskDetails,

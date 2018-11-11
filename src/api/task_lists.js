@@ -38,7 +38,7 @@ export const getTaskListsReq = (pursuanceId, filterOptions = {}, { includeArchiv
         (filterOptionsStr ? '&'+filterOptionsStr : '')
     )
     .then(taskLists => {
-      const { taskListMap, rootTaskListIds } = buildTaskListHierarchy(taskLists);
+      const { taskListMap, rootTaskListIds } = buildTaskListHierarchy(taskLists, pursuanceId);
       return { taskListMap, rootTaskListIds };
     })
     .catch(err => {
@@ -46,14 +46,14 @@ export const getTaskListsReq = (pursuanceId, filterOptions = {}, { includeArchiv
     });
 };
 
-const buildTaskListHierarchy = taskLists => {
+const buildTaskListHierarchy = (taskLists, currentPursuanceId) => {
   const taskListMap = {};
   const rootTaskListIds = [];
   for (let i = 0; i < taskLists.length; i++) {
     const t = taskLists[i];
     taskListMap[t.id] = Object.assign(t, { subtasklist_ids: [] });
 
-    if (!t.parent_task_list_id) {
+    if (!t.parent_task_list_id || t.assigned_to_pursuance_id === currentPursuanceId) {
       rootTaskListIds.push(t.id);
     } else {
       // Add t to its parent's subtasklists (if its parent is in taskListMap)

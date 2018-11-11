@@ -73,7 +73,7 @@
   color: black;
   border-radius: 5px;
   outline: none;
-  padding-left: 5px;
+  padding-left: 10px;
   height: 34px;
 }
 
@@ -100,7 +100,7 @@
 
 #invites-form input {
   flex-grow: 2;
-  max-width: 50%;
+  max-width: 20%;
   outline: none;
   border: none;
 }
@@ -191,7 +191,7 @@
 }
 
 .invite-permissions-level {
-  min-width: 130px;
+  min-width: 230px;
 }
 
 .invite-link {
@@ -330,7 +330,7 @@
   justify-content: space-between;
 }
 
-.profile .profile-name-ctn {
+.profile .profile-username-ctn {
   display: flex;
   margin-left: 5px;
   align-items: center;
@@ -338,7 +338,7 @@
   margin-bottom: 10px;
 }
 
-.profile .profile-name {
+.profile .profile-username {
   margin-right: 10px;
   font-size: 20px;
 }

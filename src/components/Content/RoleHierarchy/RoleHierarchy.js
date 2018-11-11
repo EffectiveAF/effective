@@ -48,7 +48,9 @@ class RoleHierarchy extends Component {
     const localTaskLists = Object.keys(taskLists.taskListMap)
       .filter(id => {
         tlist = taskLists.taskListMap[id];
-        if (tlist.pursuance_id === currentPursuanceId && tlist.is_role) {
+        if (tlist.is_role && (
+          tlist.pursuance_id === currentPursuanceId ||
+            tlist.assigned_to_pursuance_id === currentPursuanceId)) {
           if (!tlist.parent_task_list_id) {
             localRootTaskListIds.push(id);
           }

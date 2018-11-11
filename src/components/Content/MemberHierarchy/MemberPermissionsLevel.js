@@ -4,7 +4,7 @@ import TiPencil from 'react-icons/lib/ti/pencil';
 import './MemberPermissionsLevel.css';
 
 
-const VALID_PERMISSIONS_LEVELS = [
+export const VALID_PERMISSIONS_LEVELS = [
   'Admin',       /* view, create, assign, archive, invite, suspend, ban, delete */
   'AsstAdmin',   /* view, create, assign, archive, invite, suspend */
   'Recruiter',   /* view, create, assign, archive, invite */
