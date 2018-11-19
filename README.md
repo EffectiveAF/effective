@@ -275,7 +275,7 @@ npm run build
 npm run start
 ```
 
-Pursuance should now be running on <http://localhost:8080>!
+Pursuance should now be running on <http://localhost:8081>!
 
 
 ### Linux Instructions (for Ubuntu; works on Debian if other dependencies met)
@@ -326,7 +326,7 @@ npm install
 npm run start
 ```
 
-Pursuance should now be running on <http://localhost:8080>!
+Pursuance should now be running on <http://localhost:8081>!
 
 ### Production Deployment Build
 
