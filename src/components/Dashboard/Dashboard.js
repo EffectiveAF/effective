@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import PursuanceList from '../Content/PursuanceList/PursuanceList';
 import FaPlusCircle from 'react-icons/lib/fa/plus-circle';
+import { PROJECTS_CAPITAL } from '../../constants';
 import './Dashboard.css';
 
 class Dashboard extends Component {
@@ -41,7 +42,7 @@ class Dashboard extends Component {
                   {
                     user.authenticated &&
                     <div>
-                      My Pursuances
+                      My {PROJECTS_CAPITAL}
                       <Link to="/pursuance/create">
                         <OverlayTrigger
                           placement="bottom"

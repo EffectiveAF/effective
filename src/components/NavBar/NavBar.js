@@ -7,6 +7,7 @@ import LogIn from './LogIn/LogIn';
 import NotificationsModal from './NotificationsModal/NotificationsModal';
 import UserSettingsPopover from './UserSettingsPopover';
 import Planet from 'react-icons/lib/io/planet';
+import { PROJECT_CAPITAL, THIS_PROJECT_NAME } from '../../constants';
 import './NavBar.css';
 
 class NavBar extends Component {
@@ -23,7 +24,7 @@ class NavBar extends Component {
       <Navbar collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">Pursuance</Link>
+            <Link to="/">{THIS_PROJECT_NAME}</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -35,7 +36,7 @@ class NavBar extends Component {
             <li>
               <Link to="/pursuance/all">
                 <Planet size={16} className="planet-icon"/>
-                Explore Pursuance Universe
+                Explore {PROJECT_CAPITAL} Universe
               </Link>
             </li>
           </ul>

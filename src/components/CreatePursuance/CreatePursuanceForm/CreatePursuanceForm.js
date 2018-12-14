@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import FaQuestionCircle from 'react-icons/lib/fa/question-circle';
 import './CreatePursuanceForm.css';
 import { toast, ToastContainer } from 'react-toastify';
+import { PROJECT_CAPITAL } from '../../../constants';
 import 'react-toastify/dist/ReactToastify.min.css';
 import {
   toggleSettingsInfoModal,
@@ -77,7 +78,7 @@ class CreatePursuanceForm extends Component {
         <input
           autoFocus
           type="text"
-          placeholder="Pursuance Name"
+          placeholder={PROJECT_CAPITAL + " Name"}
           className="create-pursuance-input"
           name={'name'}
           value={name}
@@ -85,7 +86,7 @@ class CreatePursuanceForm extends Component {
         />
         <textarea
           type="text"
-          placeholder="Pursuance Mission"
+          placeholder={PROJECT_CAPITAL + " Mission"}
           className="create-pursuance-input"
           name={'mission'}
           value={mission}
@@ -101,7 +102,7 @@ class CreatePursuanceForm extends Component {
             defaultChecked
           />
           <span className="radio-field-span">
-            Public Pursuance
+            Public {PROJECT_CAPITAL}
           </span>
           <input type="radio"
             name="is_encrypted"
@@ -109,7 +110,7 @@ class CreatePursuanceForm extends Component {
             className="radio-field"
           />
           <span className="radio-field-span">
-            Private Pursuance
+            Private {PROJECT_CAPITAL}
           </span>
           <FaQuestionCircle
             size={20}
@@ -140,7 +141,7 @@ class CreatePursuanceForm extends Component {
             Yes
           </span>
         </div>
-        <button className="create-pursuance-button" onClick={this.handleSubmit}>Create Pursuance</button>
+        <button className="create-pursuance-button" onClick={this.handleSubmit}>Create {PROJECT_CAPITAL}</button>
       </form>
     )
   }

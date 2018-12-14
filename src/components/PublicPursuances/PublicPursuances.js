@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PublicPursuanceList from './PublicPursuanceList';
 import { getPublicPursuances } from '../../actions';
 import { connect } from 'react-redux';
+import { PROJECTS_CAPITAL } from '../../constants';
 
 
 class PublicPursuances extends Component {
@@ -14,7 +15,7 @@ class PublicPursuances extends Component {
     return (
       <div id="dashboard">
         <div id="dashboard-title">
-          <h1>Public Pursuances</h1>
+          <h1>Public {PROJECTS_CAPITAL}</h1>
         </div>
         <div id="dash-first-row">
           <div className="dash-ctn">

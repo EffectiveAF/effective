@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as postgrest from '../../api/postgrest';
 import { postMembership, getMemberships, deleteMembership } from '../../actions';
+import { PROJECT, PROJECTS_CAPITAL } from '../../constants';
 import './PublicPursuances.css';
 
 class PublicPursuanceList extends Component {
@@ -83,7 +84,7 @@ class PublicPursuanceList extends Component {
   render() {
     return (
       <div className="pursuance-list">
-        <h2 className="dash-box-title">Search All Public Pursuances</h2>
+        <h2 className="dash-box-title">Search All Public {PROJECTS_CAPITAL}</h2>
         <div className="public-pursuance-search-form">
           <label>Search by tag:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
           <input
@@ -93,7 +94,7 @@ class PublicPursuanceList extends Component {
             onChange={this.onChangeTag}
           />
           <br />
-          <label>Search pursuance descriptions:</label>
+          <label>Search {PROJECT} descriptions:</label>
           <input
             type="text"
             placeholder="prison-industrial complex"
