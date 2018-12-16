@@ -1,7 +1,7 @@
 export const PURSUANCE_DISPLAY_PREFIX = '(P) ';
 
 // For whitelabeling purposes, may want to change to 'pursuance'
-export const PROJECT = 'pursuance';
+export const PROJECT = 'project';
 
 export const PROJECTS = PROJECT + 's';
 
@@ -13,4 +13,4 @@ export const PROJECT_CAPITAL = capitalizeFirstLetter(PROJECT);
 
 export const PROJECTS_CAPITAL = capitalizeFirstLetter(PROJECTS);
 
-export const THIS_PROJECT_NAME = 'Pursuance';
+export const THIS_PROJECT_NAME = 'Effective';
