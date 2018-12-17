@@ -52,14 +52,14 @@ The software that makes up Effective has 2 major features/components:
 **task management** and **secure chat**.
 
 The task management functionality can be found at
-https://github.com/elimisteve/effective .  This `effective` repo
+https://github.com/EffectiveAF/effective .  This `effective` repo
 uses LeapChat (currently via an iframe, though this will change);
 LeapChat can be found in its own GitHub repo at
 https://github.com/cryptag/leapchat .
 
 So, to be clear, we have:
 
-1. [**Effective**](https://github.com/elimisteve/effective) --
+1. [**Effective**](https://github.com/EffectiveAF/effective) --
 (soon-to-be) end-to-end encrypted task management optimized for large
 numbers of participants (especially volunteers), and
 
@@ -216,7 +216,7 @@ If you're trying to run Effective on an Ubuntu server that does _not_
 already have Go installed, then just run this one command:
 
 ```
-curl https://raw.githubusercontent.com/elimisteve/effective/develop/install_linux.sh | bash
+curl https://raw.githubusercontent.com/EffectiveAF/effective/develop/install_linux.sh | bash
 ```
 
 You'll be asked to type in your `sudo` password, then to type two
@@ -240,7 +240,7 @@ source ~/.bashrc
 Then grab and build the `effective` source:
 
 ```
-go get github.com/elimisteve/effective
+go get github.com/EffectiveAF/effective
 ```
 
 ### macOS Instructions
@@ -258,7 +258,7 @@ Next, you'll need three terminals.
 and have `postgrest` connect to Postgres:
 
 ```
-cd $(go env GOPATH)/src/github.com/elimisteve/effective/db
+cd $(go env GOPATH)/src/github.com/EffectiveAF/effective/db
 createdb
 sudo -u $USER bash init_sql.sh
 wget https://github.com/begriffs/postgrest/releases/download/v0.4.3.0/postgrest-v0.4.3.0-osx.tar.xz
@@ -269,7 +269,7 @@ tar xvf postgrest-v0.4.3.0-osx.tar.xz
 **In the second terminal**, run Effective's Go backend:
 
 ```
-cd $(go env GOPATH)/src/github.com/elimisteve/effective
+cd $(go env GOPATH)/src/github.com/EffectiveAF/effective
 go build
 ./effective
 ```
@@ -278,7 +278,7 @@ go build
 Effective's auto-reloading dev server:
 
 ```
-cd $(go env GOPATH)/src/github.com/elimisteve/effective
+cd $(go env GOPATH)/src/github.com/EffectiveAF/effective
 npm install
 npm run build
 npm run start
@@ -311,7 +311,7 @@ Next, you'll need three terminals.
 and have `postgrest` connect to Postgres:
 
 ```
-cd $(go env GOPATH)/src/github.com/elimisteve/effective/db
+cd $(go env GOPATH)/src/github.com/EffectiveAF/effective/db
 sudo -u postgres bash init_sql.sh
 wget https://github.com/begriffs/postgrest/releases/download/v0.4.3.0/postgrest-v0.4.3.0-ubuntu.tar.xz
 tar xvf postgrest-v0.4.3.0-ubuntu.tar.xz
@@ -321,7 +321,7 @@ tar xvf postgrest-v0.4.3.0-ubuntu.tar.xz
 **In the second terminal**, run Effective's Go backend:
 
 ```
-cd $(go env GOPATH)/src/github.com/elimisteve/effective
+cd $(go env GOPATH)/src/github.com/EffectiveAF/effective
 go build
 ./effective
 ```
@@ -330,7 +330,7 @@ go build
 Effective's auto-reloading dev server:
 
 ```
-cd $(go env GOPATH)/src/github.com/elimisteve/effective
+cd $(go env GOPATH)/src/github.com/EffectiveAF/effective
 npm install
 npm run start
 ```
@@ -369,9 +369,9 @@ sudo setcap cap_net_bind_service=+ep effective
 ```
 
 To send email notifications to users, run
-[EffectiveMail](https://github.com/elimisteve/effectivemail)
+[EffectiveMail](https://github.com/EffectiveAF/effectivemail)
 as instructed in its
-[`README`](https://github.com/elimisteve/effectivemail#effectivemail).
+[`README`](https://github.com/EffectiveAF/effectivemail#effectivemail).
 
 
 ## Conventions
