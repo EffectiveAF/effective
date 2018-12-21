@@ -41,8 +41,9 @@ class Calendar extends Component {
       .filter((gid) => {
         const t = taskMap[gid];
         return t &&
-          t.due_date &&
+          (t.due_date || t.estimatedDueDateParsed) &&
           t.status !== 'Done' &&
+          t.status !== 'ReadyForReview' &&
           t.assigned_to === user.username &&
           (t.pursuance_id === currentPursuanceId ||
            t.assigned_to_pursuance_id === currentPursuanceId)
@@ -52,8 +53,8 @@ class Calendar extends Component {
         return {
           id: t.gid,
           title: t.title,
-          start: new Date(t.due_date),
-          end: new Date(t.due_date),
+          start: (t.due_date && new Date(t.due_date)) || t.estimatedDueDateParsed,
+          end: (t.due_date && new Date(t.due_date)) || t.estimatedDueDateParsed,
           desc: t.deliverables,
           allDay: true,
         }

@@ -19,13 +19,20 @@ export const postTaskToTaskListReq = (task, taskList) => {
   return postgrest
     .postJSON('/tasks', task, { Prefer: 'return=representation' })
     .then(async (taskJSON) => {
+      const newTaskGids = [...taskList.task_gids, taskJSON[0].gid];
+      // eslint-disable-next-line
       const updatedTaskList = await patchTaskListReq({
         id: taskList.id,
-        task_gids: formatArray([...taskList.task_gids, taskJSON[0].gid]),
+        task_gids: formatArray(newTaskGids),
       })
       return {
         newTask: taskJSON[0],
-        updatedTaskList: updatedTaskList,
+        // updatedTaskList: updatedTaskList,  // TODO: Figure out why
+                                              // this doesn't work
+        updatedTaskList: {
+          ...taskList,
+          task_gids: newTaskGids
+        },
       }
     })
     .catch(err => console.log('Error posting task to task list:', err));
