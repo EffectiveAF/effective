@@ -13,7 +13,7 @@ const VALID_OPTIONS = [
 
 const TaskOptions = ({ taskData, deleteTask }) => {
   const isTaskDeletable = () => {
-    return taskData.subtask_gids.length === 0;
+    return (taskData.subtask_gids || []).length === 0;
   }
 
   const isDisplayable = (optionName) => {

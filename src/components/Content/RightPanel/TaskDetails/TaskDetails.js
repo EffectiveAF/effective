@@ -53,7 +53,7 @@ class TaskDetails extends Component {
       }
       return null;
     }
-    const subtaskGids = task.subtask_gids;
+    const subtaskGids = task.subtask_gids || [];
 
     const parent = tasks.taskMap[task.parent_task_gid];
     const parentTitle =
