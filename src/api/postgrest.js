@@ -6,11 +6,15 @@ export const formatDate = (rfc3339, displayFormat = 'YYYY-MM-DD') => {
 
 export let URL_PREFIX = window.location.origin + '/postgrest';
 
+export const DEFAULT_HEADERS = {
+  'Content-Type': 'application/json; charset=utf-8'
+};
+
 export const postJSON = (pathSuffix, payload, additionalHeaders = {}) => {
   const headers = {
-    'Content-Type': 'application/json; charset=utf-8'
+    ...DEFAULT_HEADERS,
+    ...additionalHeaders
   };
-  Object.assign(headers, additionalHeaders);
 
   return fetch(URL_PREFIX + pathSuffix, {
     method: 'POST',
@@ -23,9 +27,9 @@ export const postJSON = (pathSuffix, payload, additionalHeaders = {}) => {
 
 export const getJSON = (pathSuffix, additionalHeaders = {}) => {
   const headers = {
-    'Content-Type': 'application/json; charset=utf-8'
+    ...DEFAULT_HEADERS,
+    ...additionalHeaders
   };
-  Object.assign(headers, additionalHeaders);
 
   return fetch(URL_PREFIX + pathSuffix, {
     method: 'GET',
@@ -37,9 +41,9 @@ export const getJSON = (pathSuffix, additionalHeaders = {}) => {
 
 export const patchJSON = (pathSuffix, payload, additionalHeaders = {}) => {
   const headers = {
-    'Content-Type': 'application/json; charset=utf-8'
+    ...DEFAULT_HEADERS,
+    ...additionalHeaders
   };
-  Object.assign(headers, additionalHeaders);
 
   return fetch(URL_PREFIX + pathSuffix, {
     method: 'PATCH',
@@ -52,9 +56,9 @@ export const patchJSON = (pathSuffix, payload, additionalHeaders = {}) => {
 
 export const deleteJSON = (pathSuffix, additionalHeaders = {}) => {
   const headers = {
-    'Content-Type': 'application/json; charset=utf-8'
+    ...DEFAULT_HEADERS,
+    ...additionalHeaders
   };
-  Object.assign(headers, additionalHeaders);
 
   return fetch(URL_PREFIX + pathSuffix, {
     method: 'DELETE',
