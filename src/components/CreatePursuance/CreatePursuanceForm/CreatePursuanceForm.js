@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import FaQuestionCircle from 'react-icons/lib/fa/question-circle';
+// import FaQuestionCircle from 'react-icons/lib/fa/question-circle';
 import './CreatePursuanceForm.css';
 import { toast, ToastContainer } from 'react-toastify';
 import { PROJECT_CAPITAL } from '../../../constants';
@@ -54,7 +54,8 @@ class CreatePursuanceForm extends Component {
   }
 
   render(){
-    const { toggleSettingsInfoModal, createPursuance } = this.props;
+    const { createPursuance } = this.props;
+    // const { toggleSettingsInfoModal } = this.props;
     const { name, mission, isPending } = createPursuance;
     return (
       <form className="create-pursuance-form" autoComplete="off">
