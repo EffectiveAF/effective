@@ -204,10 +204,13 @@ we'll have a 3rd party security audit done.
 
 ## WARNING
 
-Do not yet expose this server software to the world; we have yet to
-add authentication, which we're doing via a combination of
-cryptographic auth and PostgREST's JWTs (JSON Web Tokens).  Hang
-tight!
+Do not yet expose this server software to the world without at least
+setting `REACT_APP_BASIC_AUTH_USERNAME` and
+`REACT_APP_BASIC_AUTH_PASSWORD` in `.env`, and even then everyone who
+possesses those credentials can do anything to the database; we have
+yet to add proper accounts/authentication, which we're doing via a
+combination of cryptographic auth and PostgREST's JWTs (JSON Web
+Tokens).  Hang tight!
 
 
 ## Linux Quickstart
@@ -350,6 +353,8 @@ npm run start
 with
 
 ```
+# !!! Add HTTP Basic Auth credentials to .env to password-protect your Effective server! !!!
+source .env
 npm run build
 ```
 
@@ -364,9 +369,14 @@ with
 
 ```
 go build
+# !!! Add HTTP Basic Auth credentials to .env to password-protect your Effective server! !!!
+source .env
 sudo setcap cap_net_bind_service=+ep effective
 ./effective -prod -domain YOURDOMAINNAMEGOESHERE.com -http :80 -https :443
 ```
+
+To enable chat functionality, run
+[LeapChat](https://github.com/cryptag/leapchat) on port 8080.
 
 To send email notifications to users, run
 [EffectiveMail](https://github.com/EffectiveAF/effectivemail)

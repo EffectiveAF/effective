@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+	"os"
 	"strings"
 	"time"
 
@@ -18,6 +19,7 @@ import (
 	"github.com/cryptag/gosecure/referrer"
 	"github.com/cryptag/gosecure/xss"
 	"github.com/cryptag/minishare/miniware"
+	"github.com/goji/httpauth"
 
 	log "github.com/Sirupsen/logrus"
 	minilock "github.com/cathalgarvey/go-minilock"
@@ -34,15 +36,19 @@ const (
 	POSTGREST_BASE_URL = "http://localhost:3000"
 )
 
+var (
+	basicAuthUsername = os.Getenv("REACT_APP_BASIC_AUTH_USERNAME")
+	basicAuthPassword = os.Getenv("REACT_APP_BASIC_AUTH_PASSWORD")
+	basicAuthWrapper  = httpauth.SimpleBasicAuth(
+		basicAuthUsername,
+		basicAuthPassword,
+	)
+)
+
 func NewRouter(m *miniware.Mapper) *mux.Router {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/api/login", Login(m)).Methods("GET")
-
-	postgrestAPI, _ := url.Parse(POSTGREST_BASE_URL + "/")
-	r.PathPrefix("/postgrest").Handler(
-		http.StripPrefix("/postgrest",
-			httputil.NewSingleHostReverseProxy(postgrestAPI)))
 
 	// Hack to make up for the fact that
 	//   r.NotFoundHandler = http.HandlerFunc(GetIndex)
@@ -56,7 +62,20 @@ func NewRouter(m *miniware.Mapper) *mux.Router {
 	r.PathPrefix("/dashboard").HandlerFunc(GetIndex)
 	r.PathPrefix("/pursuance").HandlerFunc(GetIndex)
 
-	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./build"))).Methods("GET")
+	postgrestAPI, _ := url.Parse(POSTGREST_BASE_URL + "/")
+
+	handlePostgrest := http.StripPrefix("/postgrest",
+		httputil.NewSingleHostReverseProxy(postgrestAPI))
+	handleBuildDir := http.FileServer(http.Dir("./build"))
+
+	if basicAuthUsername != "" && basicAuthPassword != "" {
+		log.Println("HTTP Basic Auth: enabled")
+		handlePostgrest = basicAuthWrapper(handlePostgrest)
+		handleBuildDir = basicAuthWrapper(handleBuildDir)
+	}
+
+	r.PathPrefix("/postgrest").Handler(handlePostgrest)
+	r.PathPrefix("/").Handler(handleBuildDir).Methods("GET")
 
 	http.Handle("/", r)
 	return r

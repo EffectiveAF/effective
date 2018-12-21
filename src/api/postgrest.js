@@ -6,9 +6,16 @@ export const formatDate = (rfc3339, displayFormat = 'YYYY-MM-DD') => {
 
 export let URL_PREFIX = window.location.origin + '/postgrest';
 
-export const DEFAULT_HEADERS = {
-  'Content-Type': 'application/json; charset=utf-8'
+export let DEFAULT_HEADERS = {
+  'Content-Type': 'application/json; charset=utf-8',
 };
+
+const REACT_APP_BASIC_AUTH_USERNAME = process.env.REACT_APP_BASIC_AUTH_USERNAME;
+const REACT_APP_BASIC_AUTH_PASSWORD = process.env.REACT_APP_BASIC_AUTH_PASSWORD;
+if (REACT_APP_BASIC_AUTH_USERNAME && REACT_APP_BASIC_AUTH_PASSWORD) {
+  DEFAULT_HEADERS['Authorization'] = 'Basic ' +
+    btoa(`${REACT_APP_BASIC_AUTH_USERNAME}:${REACT_APP_BASIC_AUTH_PASSWORD}`);
+}
 
 export const postJSON = (pathSuffix, payload, additionalHeaders = {}) => {
   const headers = {
