@@ -55,7 +55,9 @@ class PublicPursuanceList extends Component {
                 className="join-btn pursuance-btn"
                 onClick={() => postMembership({
                   "pursuance_id": pursuance.id,
-                  "user_username": user.username
+                  "user_username": user.username,
+                  "permissions_level": 'Admin', // TODO: Change to 'Trainee' once
+                                                // permissions levels are enforced
                 })}>
                 Join
               </button>
