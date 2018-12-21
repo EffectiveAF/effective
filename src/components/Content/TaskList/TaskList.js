@@ -252,7 +252,6 @@ class RawTaskList extends Component {
               patchTaskList={this.props.patchTaskList}
              />
           </div>
-          )}
         </div>
         )}
         {
