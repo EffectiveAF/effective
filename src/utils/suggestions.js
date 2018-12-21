@@ -12,6 +12,7 @@ export const filterSuggestion = (value, suggestionsObj) => {
 };
 
 const sortBySuggest = (suggest1, suggest2) => {
+  // Put projects ("pursuances") last, not first
   if ((suggest1.suggestionName.startsWith(PURSUANCE_DISPLAY_PREFIX) &&
        !suggest2.suggestionName.startsWith(PURSUANCE_DISPLAY_PREFIX)) ||
       (suggest2.suggestionName.startsWith(PURSUANCE_DISPLAY_PREFIX) &&
