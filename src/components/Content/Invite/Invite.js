@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Tabs from 'react-bootstrap/lib/Tabs';
+// import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 import {
   getPursuances,
@@ -8,7 +8,7 @@ import {
   rpShowTaskDetails,
   toggleRoleInfoModal,
 } from '../../../actions';
-import FaQuestionCircle from 'react-icons/lib/fa/question-circle';
+// import FaQuestionCircle from 'react-icons/lib/fa/question-circle';
 import FaChain from 'react-icons/lib/fa/chain';
 import FaTimesCircleO from 'react-icons/lib/fa/times-circle-o';
 import FaCommentsO from 'react-icons/lib/fa/comments-o';
@@ -230,9 +230,10 @@ class Invite extends Component {
   }
 
   render() {
-    const { pursuances, currentPursuanceId, toggleRoleInfoModal } = this.props;
-    const invites = this.getInvitesFromRedux();
-    const searchResults = this.displayRecruitSearchResults();
+    const { pursuances, currentPursuanceId } = this.props;
+    // const { toggleRoleInfoModal } = this.props;
+    // const invites = this.getInvitesFromRedux();
+    // const searchResults = this.displayRecruitSearchResults();
 
     return (
       <div className="content">
@@ -245,13 +246,16 @@ class Invite extends Component {
               }
             </h2>
           </div>
+          {/*
           <Tabs defaultActiveKey={0} id="invite-tabs">
+          */}
             <Tab eventKey={0} title="Members" className="invite-hierarchy">
               <InviteHierarchy
                 pursuanceId={currentPursuanceId}
               />
             </Tab>
 
+            {/*
             <Tab eventKey={1} title="Create Invite Links" className="invite-links">
               <h3>Create New Invite Link</h3>
               <div id="invites-form">
@@ -330,7 +334,10 @@ class Invite extends Component {
                 {searchResults.results}
               </div>
             </Tab>
+            */}
+          {/*
           </Tabs>
+          */}
           <RoleInfoModal />
         </div>
       </div>

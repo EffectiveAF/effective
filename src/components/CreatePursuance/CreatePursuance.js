@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CreatePursuanceForm from './CreatePursuanceForm/CreatePursuanceForm';
 import SettingsInfoModal from './SettingsInfoModal/SettingsInfoModal';
-import { PROJECT } from '../../constants';
+import { PROJECT_CAPITAL } from '../../constants';
 import './CreatePursuance.css';
 
 class CreatePursuance extends Component {
@@ -9,8 +9,7 @@ class CreatePursuance extends Component {
     return (
       <div className="create-pursuance-container">
         <div className="create-pursuance-header">
-          <h4>Create a</h4>
-          <h1>{PROJECT}</h1>
+          <h2>Create a {PROJECT_CAPITAL}</h2>
         </div>
         <SettingsInfoModal />
         <CreatePursuanceForm />

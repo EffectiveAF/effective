@@ -93,6 +93,10 @@ class CreatePursuanceForm extends Component {
           onChange={this.onChange}
           maxLength={200}
         />
+        <p style={{margin: '0 auto', textAlign: 'left', color: 'white'}}>
+          Note: until Effective v0.9 is released, anyone with an account on this server will be able to join your project.
+        </p>
+        {/*
         <div className="create-pursuance-setting">
           <input
             type="radio"
@@ -141,6 +145,7 @@ class CreatePursuanceForm extends Component {
             Yes
           </span>
         </div>
+        */}
         <button className="create-pursuance-button" onClick={this.handleSubmit}>Create {PROJECT_CAPITAL}</button>
       </form>
     )
