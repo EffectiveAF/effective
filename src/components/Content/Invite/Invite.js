@@ -160,7 +160,8 @@ class Invite extends Component {
     const { currentPursuanceId, taskLists } = this.props;
     const roles = Object.values(taskLists.taskListMap)
       .filter(taskList => {
-        return taskList.is_role && taskList.pursuance_id === currentPursuanceId;
+        return taskList.is_role && taskList.pursuance_id === currentPursuanceId &&
+          !taskList.assigned_to_pursuance_id && !taskList.assigned_to;
       })
       .map(taskList =>
         <option key={taskList.id} value={taskList.id}>{taskList.name}</option>
