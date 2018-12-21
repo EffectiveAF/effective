@@ -50,20 +50,28 @@ class TaskDueDate extends Component {
     const { id, taskData, taskList, autoFocus } = this.props;
     const { showInput } = this.state;
     const due_date = (taskData || taskList).due_date;
+    const estimatedDueDateParsed = taskData && taskData.estimatedDueDateParsed;
 
     return (
       <div className="task-due-date hide-small" onClick={this.onClick}>
         {showInput && (
           <DueDatePicker
             id={id}
-            selected={due_date && moment(due_date)}
+            selected={(due_date || estimatedDueDateParsed) &&
+                      moment(due_date || estimatedDueDateParsed)}
             onSubmit={this.onSubmit}
             autoFocus={autoFocus}
             onBlur={this.hideInput}
            />
         )}
         {!showInput && due_date && postgrest.formatDate(due_date)}
-        {!showInput && !due_date && "Set"}
+        {!showInput && !due_date && (
+          (estimatedDueDateParsed &&
+            <em><strong>
+              {postgrest.formatDate(estimatedDueDateParsed)}
+            </strong></em>
+          ) || "Set")
+        }
       </div>
     )
   }

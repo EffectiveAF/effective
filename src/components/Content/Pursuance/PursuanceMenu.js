@@ -35,7 +35,7 @@ const PursuanceMenu = () => {
         />
         <PursuanceMenuItem
           label='My Tasks'
-          action='tasks'
+          action='my_tasks'
           icon={<FaCheckSquareO size={28} />}
         />
         <PursuanceMenuItem

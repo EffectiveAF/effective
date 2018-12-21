@@ -325,7 +325,7 @@
   margin-bottom: 10px;
   font-size: 15px;
   padding: 5px;
-  width: 600px;
+  width: 80vw;
   display: flex;
   justify-content: space-between;
 }
@@ -343,15 +343,19 @@
   font-size: 20px;
 }
 
-.profile select, option {
-  border-radius: 3px;
-}
-
-.profile button {
+.profile button, .recruit-title button {
   height: 36px;
   margin-left: 5px;
 }
 
 .profile ul {
   padding-left: 5px;
+}
+
+.invite-copy-link button {
+  margin-right: 10px;
+}
+
+.recruit-title {
+  margin-bottom: 4px;
 }

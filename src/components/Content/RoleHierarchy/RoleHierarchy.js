@@ -80,14 +80,14 @@ class RoleHierarchy extends Component {
   }
 
   render() {
-    // const { pursuances, currentPursuanceId } = this.props;
+    const { pursuances, currentPursuanceId } = this.props;
     const roleHierarchy = this.getRoleHierarchy();
 
     return (
-      <div>
+      <div className="content">
         <div id="role-hierarchy">
           <div id="task-hierarchy-title">
-            <h3>Member Roles</h3>
+            <h2>Member Roles: {pursuances[currentPursuanceId] && pursuances[currentPursuanceId].name}</h2>
             {/*<h2 id="pursuance-title">
               {
                 pursuances[currentPursuanceId] && pursuances[currentPursuanceId].name
@@ -133,8 +133,8 @@ class RoleHierarchy extends Component {
   }
 }
 
-export default connect(({ pursuances, currentPursuanceId, tasks, taskLists, user }) =>
-  ({ pursuances, currentPursuanceId, tasks, taskLists, user }), {
+export default connect(({ pursuances, currentPursuanceId, tasks, taskLists }) =>
+  ({ pursuances, currentPursuanceId, tasks, taskLists }), {
     getTasks,
     getTaskLists,
     getPursuances,

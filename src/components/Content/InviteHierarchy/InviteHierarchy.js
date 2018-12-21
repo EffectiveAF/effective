@@ -88,7 +88,7 @@ class InviteHierarchy extends Component {
       <div>
         <div id="calendar">
           <div id="task-hierarchy-title">
-            <h3>All Members</h3>
+            <h3>All Members: Who Invited Who</h3>
             {/*<h2 id="pursuance-title">
               {
                 pursuances[currentPursuanceId] && pursuances[currentPursuanceId].name

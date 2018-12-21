@@ -1,0 +1,5 @@
+@media (max-width: 899px) {
+  .synthetic-tasklist .hide-small {
+    display: none;
+  }
+}

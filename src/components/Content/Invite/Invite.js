@@ -130,7 +130,7 @@ class Invite extends Component {
 
   displayPermissionsSelect = (defaultLevel = 'Contributor') => {
     return (
-      <select defaultValue={defaultLevel}>
+      <select defaultValue={defaultLevel} style={{borderRadius: 3, paddingLeft: 4, height: 36, lineHeight: 36}}>
         {VALID_PERMISSIONS_LEVELS.map(level =>
           <option key={level} value={level}>{level}</option>
         )}
@@ -201,6 +201,13 @@ class Invite extends Component {
               Copy Link&nbsp;
               {<FaChain size={16} />}
             </button>
+            <button
+              className="btn btn-success"
+              onClick={this.addInviteUrlToClipboard}
+            >
+              Copy Tor Link&nbsp;
+              {<FaChain size={16} />}
+            </button>
             <ToastContainer
               position="top-center"
               type="success"
@@ -239,7 +246,7 @@ class Invite extends Component {
             </h2>
           </div>
           <Tabs defaultActiveKey={0} id="invite-tabs">
-            <Tab eventKey={0} title="Invite Tree" className="invite-hierarchy">
+            <Tab eventKey={0} title="Members" className="invite-hierarchy">
               <InviteHierarchy
                 pursuanceId={currentPursuanceId}
               />
@@ -305,8 +312,19 @@ class Invite extends Component {
                 />
               </div>
               <br />
-              <div className="recruit-title">
-                <h4>Search Results: {searchResults.numMatches}</h4>
+              <div className="recruit-title row" style={{display: 'flex', width: '60vw'}}>
+                <div className="col-sm-9">
+                  <h4>Search Results: {searchResults.numMatches}</h4>
+                </div>
+                <div className="col-sm-3" style={{borderRadius: 3, margin: 'auto'}}>
+                  {this.displayPermissionsSelect('Trainee')}
+                  <button
+                    className="btn btn-success"
+                    onClick={this.createInvite}
+                  >
+                    Invite All
+                  </button>
+                </div>
               </div>
               <div className="recruit-search-results">
                 {searchResults.results}

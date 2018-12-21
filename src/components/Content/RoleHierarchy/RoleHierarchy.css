@@ -1,3 +1,7 @@
 #role-hierarchy {
   padding-bottom: 50px;
 }
+
+#role-hierarchy {
+  max-width: 80vw;
+}

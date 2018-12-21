@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { setCurrentPursuance } from '../../../actions';
 import PursuanceMenu from './PursuanceMenu';
+import MyTasksView from './views/MyTasksView';
 import TaskListView from './views/TaskListView';
 import CalendarView from './views/CalendarView';
 import RolesView from './views/RolesView';
@@ -31,6 +32,7 @@ class PursuancePage extends Component {
           <article>
             <Switch>
               <Route exact path="/pursuance/:pursuanceId" component={TaskListView} />
+              <Route exact path="/pursuance/:pursuanceId/my_tasks" component={MyTasksView} />
               <Route exact path="/pursuance/:pursuanceId/tasks" component={TaskListView} />
               <Route exact path="/pursuance/:pursuanceId/calendar" component={CalendarView} />
               <Route exact path="/pursuance/:pursuanceId/roles" component={RolesView} />

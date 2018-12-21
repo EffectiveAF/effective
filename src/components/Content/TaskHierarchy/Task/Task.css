@@ -228,3 +228,7 @@ li.in-task-list .task-title {
 .assigned-to-me {
   background-color: rgba(170, 0, 255, .9);
 }
+
+.synthetic-tasklist {
+  max-width: 92%;
+}

@@ -30,10 +30,12 @@ class RawTaskList extends Component {
   constructor(props) {
     super(props);
 
-    const { user, taskList } = props;
+    // const { user, taskList } = props;
+    const { isSynthetic = false } = props;
 
     this.state = {
-      showChildren: user.username && user.username === taskList.assigned_to,
+      // showChildren: user.username && user.username === taskList.assigned_to,
+      showChildren: isSynthetic
     };
   }
 
@@ -157,7 +159,7 @@ class RawTaskList extends Component {
     } else if (icon === 'hands-down') {
       return (
         <Tooltip id="tooltip-hands-down">
-          <strong>Add Task to Role</strong>
+          <strong>Add Task to {typeName}</strong>
         </Tooltip>
       );
     } else if (icon === 'chat') {
@@ -183,14 +185,16 @@ class RawTaskList extends Component {
   }
 
   render() {
-    const { pursuances, taskList, currentPursuanceId, tasks } = this.props;
+    const { pursuances, taskList, currentPursuanceId, tasks, isSynthetic } = this.props;
     const { showChildren } = this.state;
     const { placeholder, assignedTo } = showAssignee(
       taskList, currentPursuanceId, pursuances
     );
 
     return (
-      <li className="li-task-ctn li-tasklist-ctn in-task-list">
+      <li className={"li-task-ctn li-tasklist-ctn in-task-list " +
+                     (isSynthetic ? 'synthetic-tasklist' : '')}>
+        {!isSynthetic && (
         <div className={'task-ctn'}>
           <div className="toggle-ctn">
             {this.getTaskListIcon(taskList, showChildren)}
@@ -248,7 +252,9 @@ class RawTaskList extends Component {
               patchTaskList={this.props.patchTaskList}
              />
           </div>
+          )}
         </div>
+        )}
         {
           showChildren && taskList.task_gids && taskList.task_gids.length > 0 &&
             <ul className="tasklist-ul-ctn" style={this.styleUl()}>
@@ -256,6 +262,7 @@ class RawTaskList extends Component {
                 return (
                   <Task
                     isInTaskList={true}
+                    isInSyntheticTaskList={isSynthetic}
                     key={gid}
                     taskData={tasks.taskMap[gid]}
                     taskMap={tasks.taskMap}
