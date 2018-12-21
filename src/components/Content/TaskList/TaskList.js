@@ -270,7 +270,7 @@ class RawTaskList extends Component {
               })}
             </ul>
         }
-        {(taskList.subtaskform_id || showChildren) && (
+        {!isSynthetic && (taskList.subtaskform_id || showChildren) && (
             <TaskForm
               isInTaskList={true}
               key={taskList.id}
