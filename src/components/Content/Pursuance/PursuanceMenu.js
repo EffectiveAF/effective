@@ -44,6 +44,7 @@ const PursuanceMenu = () => {
           icon={<TiFlowChildren size={28} />}
         />
         <PursuanceMenuItem
+          className="pursuance-bottom-btn"
           label='Calendar'
           action='calendar'
           icon={<FaCalendar size={28} />}
@@ -54,8 +55,6 @@ const PursuanceMenu = () => {
           action='roles'
           icon={<FaSitemap size={28} />}
         />
-        */}
-        {/*
         <PursuanceMenuItem
           label='All Members'
           action='tasks'
@@ -77,14 +76,11 @@ const PursuanceMenu = () => {
           action='progress'
           icon={<Rocket size={28} />}
         />
-        */}
         <PursuanceMenuItem
-          className="pursuance-bottom-btn"
           label='Members'
           action='members'
           icon={<Group size={28} />}
         />
-        {/*
         <PursuanceMenuItem
           label='Universe'
           action='universe'
