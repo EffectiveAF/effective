@@ -28,4 +28,4 @@ services:
     adminer:
         image: adminer
         ports:
-            - 8090:8080
+            - 8090:8082

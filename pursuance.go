@@ -34,12 +34,6 @@ func main() {
 	prod := flag.Bool("prod", false, "Run in Production mode.")
 	flag.Parse()
 
-	if *prod {
-		log.SetLevel(log.FatalLevel)
-	} else {
-		log.SetLevel(log.DebugLevel)
-	}
-
 	m := miniware.NewMapper()
 
 	srv := NewServer(m, *httpAddr)
@@ -47,6 +41,8 @@ func main() {
 	go NewEmailer()
 
 	if *prod {
+		log.SetLevel(log.FatalLevel)
+
 		if *domain == "" {
 			log.Fatal("You must specify a -domain when using the -prod flag.")
 		}
@@ -63,6 +59,8 @@ func main() {
 		log.Infof("Listening on %v", *httpsAddr)
 		log.Fatal(srv.ListenAndServeTLS("", ""))
 	} else {
+		log.SetLevel(log.DebugLevel)
+
 		THIS_DOMAIN_BASE_URL = "http://" + *httpAddr
 		log.Infof("Listening on %v", *httpAddr)
 		log.Fatal(srv.ListenAndServe())
