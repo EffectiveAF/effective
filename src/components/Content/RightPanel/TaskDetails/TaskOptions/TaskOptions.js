@@ -45,8 +45,9 @@ const TaskOptions = ({ taskData, deleteTask }) => {
   }
 
   const renderDropDownItems = () => {
-    return VALID_OPTIONS.map(optionName => {
-      if (isDisplayable(optionName)) {
+    return VALID_OPTIONS
+      .filter(optionName => isDisplayable(optionName))
+      .map(optionName => {
         return (
           <MenuItem
             key={optionName}
@@ -56,9 +57,7 @@ const TaskOptions = ({ taskData, deleteTask }) => {
             <div>{renderAction(optionName)}{optionName}</div>
           </MenuItem>
         );
-      }
-      return null;
-    })
+      })
   }
 
   const renderEllipse = () => {
@@ -70,16 +69,20 @@ const TaskOptions = ({ taskData, deleteTask }) => {
   }
 
   return (
-    <div className="task-options-ctn hide-small">
-      <DropdownButton
-        id="task-options-dropdown"
-        bsSize="small"
-        title={renderEllipse()}
-        pullRight
-        noCaret
-      >
-        {renderDropDownItems()}
-      </DropdownButton>
+    <div>
+      {renderDropDownItems().length > 0 && (
+        <div className="task-options-ctn hide-small">
+          <DropdownButton
+            id="task-options-dropdown"
+            bsSize="small"
+            title={renderEllipse()}
+            pullRight
+            noCaret
+          >
+            {renderDropDownItems()}
+          </DropdownButton>
+        </div>
+      )}
     </div>
   )
 }
