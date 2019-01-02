@@ -292,11 +292,11 @@ Effective should now be running on <http://localhost:8081>!
 
 ### Linux Instructions (for Ubuntu; works on Debian if other dependencies met)
 
-If you don't already have Node 7.x installed (`node --version` will tell
+If you don't already have Node 8.x installed (`node --version` will tell
 you the installed version), install Node by running:
 
 ```
-curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install nodejs
 ```
 
