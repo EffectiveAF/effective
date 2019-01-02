@@ -136,7 +136,7 @@ class TaskForm extends Component {
   }
 
   render() {
-    const { taskForm, autoComplete, autoFocus } = this.props;
+    const { taskForm, autoComplete, autoFocus, willCreateSubtask } = this.props;
     const { title, assigned_to, due_date_raw } = taskForm[this.id] || {};
     return (
       <div className={this.getClassName()}>
@@ -146,7 +146,7 @@ class TaskForm extends Component {
               id="input-task-title"
               type="text"
               className="form-control"
-              placeholder="Task Title"
+              placeholder={willCreateSubtask ? "Add Subtask" : "Task Title"}
               name={'title'}
               value={title || ''}
               autoFocus={autoFocus !== false}

@@ -117,6 +117,7 @@ class TaskDetails extends Component {
             </div>
             <div className="create-subtask-ctn">
               <TaskForm
+                willCreateSubtask={true}
                 parentGid={task.gid}
                 key={task.gid}
                 id={task.gid}
