@@ -12,6 +12,7 @@ export default function(state = initialState, action) {
       const membership = action.payload;
       return Object.assign({}, state, {
         membershipMap: {
+          ...state.membershipMap,
           [membership.id]: membership
         }
       });
