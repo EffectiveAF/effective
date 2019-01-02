@@ -73,7 +73,7 @@ class TaskDueDate extends Component {
             </strong></em>
           ) || (
             <div className="task-due-date-edit-ctn">
-              Set&nbsp;&nbsp;<TiPencil id="task-due-date-edit-icon" size={18} />
+              Due: ...&nbsp;&nbsp;<TiPencil id="task-due-date-edit-icon" size={18} />
             </div>
           ))
         }
