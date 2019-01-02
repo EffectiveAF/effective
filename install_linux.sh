@@ -13,11 +13,11 @@ export PATH=$PATH:$GOPATH/bin
 ## Install git
 sudo apt-get install git
 
-## Get `pursuance`
+## Get `effective`
 go get github.com/EffectiveAF/effective
 
 ## Get Node
-curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 ## Install create-react-app
@@ -45,9 +45,9 @@ cd $(go env GOPATH)/src/github.com/EffectiveAF/effective
 npm install
 npm run build
 go build
-./pursuance
+./effective
 
-# and Pursuance should be up and running on localhost:8082.
+# and Effective should be up and running on localhost:8082.
 #
 # See README.md for how to set up a production deployment that creates
 # an auto-renewing HTTPS cert, uses secure headers, and more.'
