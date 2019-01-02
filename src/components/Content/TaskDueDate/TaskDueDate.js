@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import TiPencil from 'react-icons/lib/ti/pencil';
 import * as postgrest from '../../../api/postgrest';
 import DueDatePicker from '../TaskManager/TaskForm/DatePicker/DatePicker';
-
+import './TaskDueDate.css';
 
 class TaskDueDate extends Component {
   constructor(props) {
@@ -70,7 +71,11 @@ class TaskDueDate extends Component {
             <em><strong>
               {postgrest.formatDate(estimatedDueDateParsed)}
             </strong></em>
-          ) || "Set")
+          ) || (
+            <div className="task-due-date-edit-ctn">
+              Set&nbsp;&nbsp;<TiPencil id="task-due-date-edit-icon" size={18} />
+            </div>
+          ))
         }
       </div>
     )

@@ -1,0 +1,13 @@
+.task-due-date-edit-ctn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#task-due-date-edit-icon {
+  display: none;
+}
+
+.task-due-date-edit-ctn:hover #task-due-date-edit-icon {
+  display: inline-block;
+}

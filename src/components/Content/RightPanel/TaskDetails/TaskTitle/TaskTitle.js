@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TiPencil from 'react-icons/lib/ti/pencil';
 
 import './TaskTitle.css';
 
@@ -71,7 +72,11 @@ class TaskTitle extends Component {
           />
         )}
         {!showInput && (
-          <span className="discuss-task-title" onClick={this.toggleInput}>{title}</span>
+          <span className="discuss-task-title" onClick={this.toggleInput}>
+            {title}
+            &nbsp;&nbsp;
+            <TiPencil id="task-title-edit-icon" size={22} />
+          </span>
         )}
       </div>
     )

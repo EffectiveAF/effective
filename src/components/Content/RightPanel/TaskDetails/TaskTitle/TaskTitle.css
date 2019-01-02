@@ -1,3 +1,11 @@
+#task-title-edit-icon {
+  display: none;
+}
+
+.discuss-task-title:hover #task-title-edit-icon {
+  display: inline-block;
+}
+
 #discuss-task-title-update {
   color: #1c1c1c;
   outline: none;
