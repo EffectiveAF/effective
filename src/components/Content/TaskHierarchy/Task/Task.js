@@ -23,6 +23,15 @@ import {
   patchTask
 } from '../../../../actions';
 
+// task list uses the default vertical/wide spread confetti
+const confettiConfig = {
+  angle: 80,
+  spread: 148,
+  startVelocity: 77,
+  elementCount: 167,
+  decay: 0.84
+};
+
 class RawTask extends Component {
   constructor(props) {
     super(props);
@@ -230,6 +239,8 @@ class RawTask extends Component {
                 gid={task.gid}
                 status={task.status}
                 patchTask={this.props.patchTask}
+                showCelebration={task.celebration === 'show' && !rightPanel.show}
+                confettiConfig={confettiConfig}
               />
             )}
             <div className="task-assigned-to hide-small">
