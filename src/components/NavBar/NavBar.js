@@ -28,6 +28,7 @@ class NavBar extends Component {
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
+        {!authenticated && <LogIn />}
         <Navbar.Collapse>
           <ul className="nav navbar-nav">
             <li role="presentation">
@@ -58,7 +59,6 @@ class NavBar extends Component {
                 </NavItem>
               )
             }
-            {!authenticated && <LogIn />}
             {
               authenticated &&
               (
