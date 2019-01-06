@@ -61,6 +61,9 @@ class NavBar extends Component {
               )
             }
             {!authenticated && <LogIn />}
+            {authenticated &&
+              <JumpToPursuance history={this.props.history}/>
+            }
             {
               authenticated &&
               (
@@ -79,9 +82,6 @@ class NavBar extends Component {
                 <NotificationsModal
                   onIncreaseContributionAmount={this.props.onIncreaseContributionAmount}
                   onRemoveNotification={this.props.onRemoveNotification} />
-            }
-            {authenticated &&
-              <JumpToPursuance history={this.props.history}/>
             }
             {
               authenticated &&

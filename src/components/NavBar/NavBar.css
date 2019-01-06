@@ -119,7 +119,7 @@ nav li a:hover {
 }
 
 .nav-pursuances {
-  float: right;
+  float: left;
   position: relative;
   display: block;
   padding: 0 15px;
