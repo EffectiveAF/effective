@@ -28,6 +28,7 @@ class NavBar extends Component {
           <Navbar.Brand>
             <Link to="/">{THIS_PROJECT_NAME}</Link>
           </Navbar.Brand>
+          <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <ul className="nav navbar-nav">
