@@ -46,6 +46,11 @@ export const setTaskFormParentGid = (formId, newParentGid, oldParentGid) => ({
 
 export const getUsers = () => ({ type: 'GET_USERS', payload: getUsersReq() });
 
+export const setPublicOrder = publicOrder => ({
+  type: 'SET_PUBLIC_ORDER',
+  publicOrder
+});
+
 export const getPursuancesByIds = pursuanceIds => ({
   type: 'GET_PURSUANCES_BY_IDS',
   payload: getPursuancesReq(pursuanceIds)
