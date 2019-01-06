@@ -193,7 +193,9 @@ nav li a:hover {
 
 @media (max-width: 960px) {
   #header-pursuance-dropdown {
-    max-width: 165px;
+    max-width: none;
+    width: auto;
+    padding-right: 25px;
   }
 
   .nav-pursuances {
