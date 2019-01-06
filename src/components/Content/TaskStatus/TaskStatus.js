@@ -50,8 +50,8 @@ class TaskStatus extends Component {
   }
 
   componentDidUpdate = () => {
-    // prevent showing multiple celebrations for single task completion 
-    // (when switching sidebar tasks for example)
+    // Prevent showing multiple celebrations for single task completion
+    // (when switching sidebar tasks, for example)
     const { showCelebration, gid } = this.props;
     if (showCelebration) this.props.setTaskCelebrated(gid);
   }
