@@ -36,6 +36,10 @@
   background-color: black;
 }
 
+.navbar-collapse.in {
+  overflow-y: visible;
+}
+
 .navbar-brand:hover {
   color: #8662ea !important;
 }
@@ -165,6 +169,26 @@ nav li a:hover {
 
 .nav-pursuances .dropdown a:hover {
   color: #262626 !important;
+}
+
+@media (max-width: 768px) {
+  .nav-pursuances {
+    float: none;
+  }
+
+  .navbar-nav .nav-pursuances .dropdown-menu {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 90%;
+    background-color: #fff;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 960px) {
+  .nav-pursuances {
+    display: none;
+  }
 }
 
 @media (max-width: 960px) {
