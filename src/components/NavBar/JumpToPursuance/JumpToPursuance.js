@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import { setCurrentPursuance } from '../../../actions';
+import { PROJECT } from '../../../constants';
 
 const getCurrentPursuanceName = (pursuances, currentPursuanceId) => {
   const rawPursuance = pursuances[currentPursuanceId];
   if (rawPursuance !== undefined) {
     return rawPursuance.name;
   } else {
-    return "Jump to a pursuance";
+    return "Jump to a " + PROJECT;
   }
 }
 
