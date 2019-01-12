@@ -6,6 +6,7 @@
   border-bottom-left-radius: 5px;
   border: 1px solid #6d6d6d;
   border-right: none;
+  overflow-x: hidden;
 }
 
 @media (max-width: 1279px) {

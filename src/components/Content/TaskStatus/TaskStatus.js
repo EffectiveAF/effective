@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import TiPencil from 'react-icons/lib/ti/pencil';
+import Confetti from 'react-dom-confetti';
+import { setTaskCelebrated } from '../../../actions';
 import './TaskStatus.css';
-
 
 const VALID_STATUSES = [
   'New',
@@ -47,10 +49,18 @@ class TaskStatus extends Component {
     patchTask({ gid, status });
   }
 
+  componentDidUpdate = () => {
+    // prevent showing multiple celebrations for single task completion 
+    // (when switching sidebar tasks for example)
+    const { showCelebration, gid } = this.props;
+    if (showCelebration) this.props.setTaskCelebrated(gid);
+  }
+
   render() {
-    const { status } = this.props;
+    const { status, showCelebration, confettiConfig } = this.props;
     return (
       <div className={"task-status-ctn task-status-" + status + " hide-small"}>
+        <Confetti active={showCelebration} config={confettiConfig}/>
         <DropdownButton
           id="task-status-dropdown"
           title={this.getCurrentStatus()}
@@ -66,4 +76,4 @@ class TaskStatus extends Component {
   }
 }
 
-export default TaskStatus;
+export default connect(() => ({}), { setTaskCelebrated })(TaskStatus);
