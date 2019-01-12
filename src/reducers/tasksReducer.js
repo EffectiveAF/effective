@@ -101,6 +101,14 @@ export default function(state = initialState, action) {
                                        // .subtaskform_id, etc
         ...t
       };
+      const prevTaskState = state.taskMap[patchedTask.gid];
+    
+      if (prevTaskState.status !== 'Done' && patchedTask.status === 'Done') {
+        patchedTask.celebration = 'show';
+      } else {
+        patchedTask.celebration = 'hide';
+      }
+
       return Object.assign({}, state, {
         taskMap: Object.assign({}, state.taskMap, {
           [patchedTask.gid]: patchedTask
@@ -172,6 +180,17 @@ export default function(state = initialState, action) {
           [parentTaskGid]: Object.assign({}, parentTask, {
             subtaskform_id: null
           })
+        })
+      });
+    }
+
+    case 'PATCH_TASK_CELEBRATED': {
+      const patchedTask = state.taskMap[action.taskGid];
+      patchedTask.celebration = 'hide';
+
+      return Object.assign({}, state, {
+        taskMap: Object.assign({}, state.taskMap, {
+          [patchedTask.gid]: patchedTask
         })
       });
     }

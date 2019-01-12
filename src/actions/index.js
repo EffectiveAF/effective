@@ -374,3 +374,8 @@ export const setTaskListAssignee = taskList => ({
   type: 'TASK_LIST_SET_ASSIGNEE',
   payload: patchTaskListReq(taskList),
 });
+
+export const setTaskCelebrated = taskGid => ({
+  type: 'PATCH_TASK_CELEBRATED',
+  taskGid,
+});

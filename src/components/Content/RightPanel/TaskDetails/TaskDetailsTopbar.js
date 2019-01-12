@@ -9,6 +9,15 @@ import TaskOptions from './TaskOptions/TaskOptions';
 
 import './TaskDetailsTopbar.css';
 
+// task details use the modified horizontal, narrow-spread confetti
+const confettiConfig = {
+  angle: 40,
+  spread: 90,
+  startVelocity: 55,
+  elementCount: 65,
+  decay: 0.84
+};
+
 class TaskDetailsTopbar extends Component {
 
   showAssignee = () => {
@@ -62,6 +71,8 @@ class TaskDetailsTopbar extends Component {
             gid={task.gid}
             status={task.status}
             patchTask={this.props.patchTask}
+            showCelebration={task.celebration === 'show'}
+            confettiConfig={confettiConfig}
           />
           <div className="assigned-to-ctn">
             <TaskAssigner
