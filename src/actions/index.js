@@ -372,5 +372,5 @@ export const setTaskListAssignee = taskList => ({
 
 export const setTaskCelebrated = taskGid => ({
   type: 'PATCH_TASK_CELEBRATED',
-  taskGid
+  taskGid,
 });
