@@ -18,14 +18,7 @@ const plugins = [
 class Wysiwyg extends Component {
   constructor(props) {
     super(props);
-    const {tasks: { taskMap }, taskGid, attributeName} = this.props,
-      attributeValue = taskMap[taskGid][attributeName],
-      content = attributeValue ? markdownToDraft(attributeValue, {
-        remarkableOptions: {
-          html: false,
-          preserveNewlines: true
-        }
-      }) : markdownToDraft('');
+    const content = this.calculateContent();
 
     this.state = {
       editMode: false,
@@ -33,7 +26,7 @@ class Wysiwyg extends Component {
     };
   }
 
-  editModeEnable = () => {
+  calculateContent = () => {
     const {tasks: { taskMap }, taskGid, attributeName} = this.props,
       attributeValue = taskMap[taskGid][attributeName],
       content = attributeValue ? markdownToDraft(attributeValue, {
@@ -42,6 +35,12 @@ class Wysiwyg extends Component {
           preserveNewlines: true
         }
       }) : markdownToDraft('');
+
+    return content;
+  }
+
+  editModeEnable = () => {
+    const content = this.calculateContent();
 
     this.setState({
       editMode: true,
