@@ -72,6 +72,10 @@ nav li a:hover {
   color: #efefef !important;
 }
 
+.navbar-nav li:last-child a {
+  padding-right: 0;
+}
+
 .navbar-nav li a:hover {
   color: #1fc7d3 !important;
 }
@@ -117,7 +121,8 @@ nav li a:hover {
   border: none;  
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 200px;
+  max-width: 280px;
+  min-width: 70px;
   position: relative;
   padding-right: 13px;
 }
@@ -145,12 +150,17 @@ nav li a:hover {
   overflow: hidden;
 }
 
+.nav-pursuances .dropdown li {
+  height: auto;
+}
+
 .nav-pursuances .dropdown > .dropdown-menu {
   opacity: 0;
   display: block;
   transition: opacity 200ms ease-in-out;
   max-width: 300px;
   overflow: hidden;
+  padding: 0;
 }
 
 .nav-pursuances .dropdown.open {
@@ -165,6 +175,10 @@ nav li a:hover {
   overflow: hidden;
   text-overflow: ellipsis;
   color: #262626 !important;
+  white-space: normal;
+  height: auto;
+  padding: 15px 10px;
+  text-align: center;
 }
 
 .nav-pursuances .dropdown a:hover {
@@ -186,7 +200,7 @@ nav li a:hover {
 }
 
 @media (min-width: 768px) and (max-width: 960px) {
-  .nav-pursuances {
+  .nav .nav-pursuances {
     display: none;
   }
 }
@@ -200,5 +214,11 @@ nav li a:hover {
 
   .nav-pursuances {
     padding: 0 10px;
+  }
+}
+
+@media (max-width: 1024px) {
+  #header-pursuance-dropdown {
+    max-width: 200px;
   }
 }
