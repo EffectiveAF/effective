@@ -4,13 +4,13 @@ import { rpShowTaskDetails } from '../../../../actions';
 import './DiscussView.css';
 
 // Set leapChatUrl constant for use below
-const REACT_APP_DOMAIN_BASE_URL = process.env.REACT_APP_DOMAIN_BASE_URL;
-const DEFAULT_DOMAIN_BASE_URL = 'http://localhost:8080/';
+const REACT_APP_LEAPCHAT_BASE_URL = process.env.REACT_APP_LEAPCHAT_BASE_URL;
+const DEFAULT_LEAPCHAT_BASE_URL = 'http://localhost:8080/';
 const REACT_APP_LEAPCHAT_PASSPHRASE = process.env.REACT_APP_LEAPCHAT_PASSPHRASE;
 const DEFAULT_LEAPCHAT_PASSPHRASE = 'GiddinessPuttRegisterKioskLucidityJockstrapTastebudFactoryPegboardOpticalEstrogenGoatskinHatchlingDittoPseudoNegotiatorLunchboxLightbulbUploadSyllableTulipQuiltJurorRuptureAorta';
-const DOMAIN_BASE_URL = REACT_APP_DOMAIN_BASE_URL || DEFAULT_DOMAIN_BASE_URL;
+const LEAPCHAT_BASE_URL = REACT_APP_LEAPCHAT_BASE_URL || DEFAULT_LEAPCHAT_BASE_URL;
 const LEAPCHAT_PASSPHRASE = REACT_APP_LEAPCHAT_PASSPHRASE || DEFAULT_LEAPCHAT_PASSPHRASE;
-const leapChatUrl = `${DOMAIN_BASE_URL}#${LEAPCHAT_PASSPHRASE}`;
+const leapChatUrl = `${LEAPCHAT_BASE_URL}#${LEAPCHAT_PASSPHRASE}`;
 
 class DiscussView extends Component {
 
