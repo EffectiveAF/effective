@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Task from './Task/Task';
 import { toast, ToastContainer } from 'react-toastify';
 import { connect } from 'react-redux';
+import { PROJECT } from '../../../constants';
 import { showTaskInPursuance } from '../../../utils/tasks';
 import {
   getUsers,
@@ -31,7 +32,7 @@ class TaskHierarchy extends Component {
       getPursuances();
     }
     if (showSuccessToast) {
-      toast.success('New pursuance created! Ready to rock.');
+      toast.success('New ' + PROJECT + ' created! Ready to rock.');
     }
   }
 
