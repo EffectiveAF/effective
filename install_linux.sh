@@ -11,7 +11,8 @@ export GOPATH=~/gocode
 export PATH=$PATH:$GOPATH/bin
 
 ## Install git
-sudo apt-get install git
+sudo apt-get update
+sudo apt-get install -y git
 
 ## Get `effective`
 go get github.com/EffectiveAF/effective
