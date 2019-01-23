@@ -8,7 +8,10 @@ import FaVideoCamera from 'react-icons/lib/fa/video-camera';
 import './TaskIcons.css';
 import { archiveTask } from '../../../../../actions';
 
-const jitsiRoom = 'https://meet.jit.si/PonchoSpiderPageantFoxAlsoLaptopTractorWoundDebrisCaucasianGrapeDishclothFaucetBuddhistRefineryRibbonIridescentWishboneDesktopMugshotLeukemiaOfficeApricotEuthanizeUngloved';
+const REACT_APP_JITSI_BASE_ROOM_NAME = process.env.REACT_APP_JITSI_BASE_ROOM_NAME;
+const DEFAULT_JITSI_BASE_ROOM_NAME = 'PonchoSpiderPageantFoxAlsoLaptopTractorWound';
+const JITSI_BASE_ROOM_NAME = REACT_APP_JITSI_BASE_ROOM_NAME || DEFAULT_JITSI_BASE_ROOM_NAME;
+const jitsiRoom = 'https://meet.jit.si/' + JITSI_BASE_ROOM_NAME;
 
 const TaskIcons = ({ gid, subtaskGids = [], archiveTask, history, currentPursuanceId }) => {
 
