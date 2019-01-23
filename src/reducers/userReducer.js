@@ -1,4 +1,6 @@
-const lsUsername = localStorage.getItem('username') || '';
+const REACT_APP_DEFAULT_USERNAME = process.env.REACT_APP_DEFAULT_USERNAME;
+
+const lsUsername = localStorage.getItem('username') || REACT_APP_DEFAULT_USERNAME || '';
 
 const initialState = {
   authenticated: lsUsername !== '',
