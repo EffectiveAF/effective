@@ -40,5 +40,6 @@
     "verify-eslint-rules": "eslint --print-config .eslintrc | eslint-config-prettier-check",
     "ci": "npm run verify-eslint-rules && npm run format:check && npm run lint:check"
   },
+  "homepage": "https://github.com/EffectiveAF/effective",
   "proxy": "http://localhost:8082/"
 }
