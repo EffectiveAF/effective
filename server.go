@@ -32,11 +32,12 @@ import (
 
 const (
 	MINILOCK_ID_KEY = "minilock_id"
-
-	POSTGREST_BASE_URL = "http://localhost:3000"
 )
 
 var (
+	DEFAULT_POSTGREST_BASE_URL = "http://localhost:3000/"
+	POSTGREST_BASE_URL         = os.Getenv("INTERNAL_POSTGREST_BASE_URL")
+
 	basicAuthUsername = os.Getenv("REACT_APP_BASIC_AUTH_USERNAME")
 	basicAuthPassword = os.Getenv("REACT_APP_BASIC_AUTH_PASSWORD")
 	basicAuthWrapper  = httpauth.SimpleBasicAuth(
@@ -44,6 +45,12 @@ var (
 		basicAuthPassword,
 	)
 )
+
+func init() {
+	if POSTGREST_BASE_URL == "" {
+		POSTGREST_BASE_URL = DEFAULT_POSTGREST_BASE_URL
+	}
+}
 
 func NewRouter(m *miniware.Mapper) *mux.Router {
 	r := mux.NewRouter()
@@ -62,7 +69,7 @@ func NewRouter(m *miniware.Mapper) *mux.Router {
 	r.PathPrefix("/dashboard").HandlerFunc(GetIndex)
 	r.PathPrefix("/pursuance").HandlerFunc(GetIndex)
 
-	postgrestAPI, _ := url.Parse(POSTGREST_BASE_URL + "/")
+	postgrestAPI, _ := url.Parse(POSTGREST_BASE_URL)
 
 	handlePostgrest := http.StripPrefix("/postgrest",
 		httputil.NewSingleHostReverseProxy(postgrestAPI))
