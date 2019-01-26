@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {EditorState, convertToRaw, convertFromRaw} from 'draft-js';
-import Editor from 'draft-js-plugins-editor';
+import { Editor } from 'draft-js';
 import createAutoListPlugin from 'draft-js-autolist-plugin'
 import createMarkdownPlugin from 'draft-js-markdown-plugin';
 import {markdownToDraft, draftToMarkdown} from 'markdown-draft-js';
