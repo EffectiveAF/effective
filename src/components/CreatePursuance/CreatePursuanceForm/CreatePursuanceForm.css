@@ -52,6 +52,10 @@
     padding: 0 17px;
   }
 
+  .create-pursuance-header h2 {
+    margin-bottom: 30px;
+  }
+
   .create-pursuance-input {
     width: 100%;
   }
