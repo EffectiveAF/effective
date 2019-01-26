@@ -53,7 +53,7 @@ class LogIn extends Component {
 
     // TODO: Actually log user in, don't just fake it
     userLoginSuccess({username: this.username});
-    toast.success(`Welcome back ${this.username}!`);
+    toast.success(`Welcome back, ${this.username}!`);
 
     this.usernameRemembered = '';
     this.username = '';
