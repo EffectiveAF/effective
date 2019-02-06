@@ -20,7 +20,7 @@ class App extends Component {
             {/* Temporary redirect from /; will use HomePage component */}
             <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
             <Route exact path="/dashboard" render={() => {
-              return this.props.authenticated
+              return this.props.user.authenticated
                 ? <Dashboard />
                 : <Redirect to="/pursuance/all" />
             }} />
