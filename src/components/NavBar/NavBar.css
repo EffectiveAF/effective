@@ -158,7 +158,8 @@ nav li a:hover {
   opacity: 0;
   display: block;
   transition: opacity 200ms ease-in-out;
-  max-width: 300px;
+  width: 300px;
+  max-width: 400px;
   overflow: hidden;
   padding: 0;
 }
