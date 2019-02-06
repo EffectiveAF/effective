@@ -7,6 +7,12 @@ import './LogIn.css';
 
 const USERNAME_KEY = 'username';
 
+const personality = [
+  "Lookin' good :-D",
+  "Ready to rock?",
+  "Let's do this.",
+];
+
 class LogIn extends Component {
   constructor(props) {
     super(props);
@@ -53,7 +59,8 @@ class LogIn extends Component {
 
     // TODO: Actually log user in, don't just fake it
     userLoginSuccess({username: this.username});
-    toast.success(`Welcome back, ${this.username}!`);
+    const personalityComment = personality[Math.floor(Math.random() * personality.length)];
+    toast.success(`Welcome back, ${this.username}! ${personalityComment}`);
 
     this.usernameRemembered = '';
     this.username = '';
