@@ -2,11 +2,21 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {EditorState, convertToRaw, convertFromRaw} from 'draft-js';
 import { Editor } from 'draft-js';
+import {getDefaultKeyBinding, KeyBindingUtil} from 'draft-js';
 import createAutoListPlugin from 'draft-js-autolist-plugin'
 import createMarkdownPlugin from 'draft-js-markdown-plugin';
 import {markdownToDraft, draftToMarkdown} from 'markdown-draft-js';
 import ReactMarkdown from 'react-markdown';
 import './Wysiwyg.css';
+
+const {hasCommandModifier} = KeyBindingUtil;
+
+function myKeyBindingFn(e) {
+  if (e.keyCode === 13 /* `enter` key */ && hasCommandModifier(e)) {
+    return 'myeditor-save';
+  }
+  return getDefaultKeyBinding(e);
+}
 
 const autoListPlugin = createAutoListPlugin();
 
@@ -44,7 +54,9 @@ class Wysiwyg extends Component {
 
     this.setState({
       editMode: true,
-      editorState: EditorState.createWithContent(convertFromRaw(content))
+      editorState: EditorState.moveFocusToEnd(
+        EditorState.createWithContent(convertFromRaw(content))
+      )
     });
   };
 
@@ -68,24 +80,42 @@ class Wysiwyg extends Component {
     });
   }
 
+  editModeFalse = () => {
+    this.setState({
+      editMode: false
+    });
+  }
+
+  handleKeyCommand = (command) => {
+    if (command === 'myeditor-save') {
+      this.save();
+      return 'handled';
+    }
+    return 'not-handled';
+  }
+
   render() {
     const {tasks: {taskMap}} = this.props,
       attributeValue = taskMap[this.props.taskGid][this.props.attributeName];
 
     return (
-      <div>          
+      <div>
+        <h4>
+          <strong>Description / Deliverables</strong>&nbsp;&nbsp;
+          {this.state.editMode && <button className='wysiwyg-save' onClick={this.save}>Save</button>}
+          {!this.state.editMode && <button className='wysiwyg-edit' onClick={this.editModeEnable}>Edit</button>}
+        </h4>
         {
           this.state.editMode && (
-            <div>
-              <div className='wysiwyg'>
-                <Editor
-                  editorState={this.state.editorState}
-                  onChange={this.onChange}
-                  plugins={plugins}
-                />
-              </div>
-              <button className='wysiwyg-save' 
-                onClick={this.save}>Save</button>
+            <div className='wysiwyg'>
+              <Editor
+                editorState={this.state.editorState}
+                onChange={this.onChange}
+                onEscape={this.editModeFalse}
+                plugins={plugins}
+                handleKeyCommand={this.handleKeyCommand}
+                keyBindingFn={myKeyBindingFn}
+              />
             </div>
           )
         }
@@ -101,7 +131,6 @@ class Wysiwyg extends Component {
                   // If link to external site, open in new tab
                   return <a href={props.href} target="_blank">{props.children}</a>;
                 }}} />
-              <button className='wysiwyg-edit' onClick={this.editModeEnable}>Edit</button>
             </div>
           )
         }

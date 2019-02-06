@@ -92,7 +92,6 @@ class TaskDetails extends Component {
               </span>
             </div>
             <div className="task-deliverables-ctn">
-              <h4><strong>Description / Deliverables</strong></h4>
               <Wysiwyg taskGid={taskGid} attributeName='deliverables' patchTask={this.props.patchTask} />
             </div>
             <div className="subtasks-ctn">
