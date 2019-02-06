@@ -6,6 +6,7 @@ import PursuanceMenuItem from './PursuanceMenuItem';
 import TiFlowChildren from 'react-icons/lib/ti/flow-children';
 import FaCheckSquareO from 'react-icons/lib/fa/check-square-o';
 import FaCalendar from 'react-icons/lib/fa/calendar';
+import Info from 'react-icons/lib/fa/info-circle';
 // import FaSitemap from 'react-icons/lib/fa/sitemap';
 import CommentsO from 'react-icons/lib/fa/comments-o';
 // import Planet from 'react-icons/lib/io/planet';
@@ -19,6 +20,12 @@ const PursuanceMenu = () => {
   return (
     <ButtonGroup vertical className="pursuance-btn-group hide-xsmall">
       <div>
+        <PursuanceMenuItem
+          className="pursuance-top-btn"
+          label='About'
+          action='about'
+          icon={<Info size={28} />}
+        />
         {/*
         <PursuanceMenuItem
           className="pursuance-top-btn"
@@ -28,7 +35,6 @@ const PursuanceMenu = () => {
         />
         */}
         <PursuanceMenuItem
-          className="pursuance-top-btn"
           label='Discuss'
           action='discuss'
           icon={<CommentsO size={28} />}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 import { Navbar, NavItem, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import FaBell from 'react-icons/lib/fa/bell';
 import SignUp from './SignUp/SignUp';
@@ -8,6 +9,7 @@ import NotificationsModal from './NotificationsModal/NotificationsModal';
 import UserSettingsPopover from './UserSettingsPopover';
 import Planet from 'react-icons/lib/io/planet';
 import { PROJECT_CAPITAL, THIS_PROJECT_NAME } from '../../constants';
+import JumpToPursuance from './JumpToPursuance/JumpToPursuance';
 import './NavBar.css';
 
 class NavBar extends Component {
@@ -19,7 +21,7 @@ class NavBar extends Component {
   );
 
   render() {
-    const { authenticated, username, contributionPoints } = this.props;
+    const { authenticated, username, contributionPoints } = this.props.user;
     return (
       <Navbar collapseOnSelect>
         <Navbar.Header>
@@ -59,6 +61,9 @@ class NavBar extends Component {
                 </NavItem>
               )
             }
+            {authenticated &&
+              <JumpToPursuance history={this.props.history}/>
+            }
             {
               authenticated &&
               (
@@ -93,4 +98,4 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+export default withRouter(connect(({ user }) => ({ user }))(NavBar));

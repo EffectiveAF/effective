@@ -15,15 +15,9 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <NavBar
-            authenticated={this.props.authenticated}
-            contributionPoints={this.props.contributionPoints}
-            username={this.props.username}
-            onRemoveNotification={this.props.removeNotification}
-            onIncreaseContributionAmount={this.props.increaseContributionAmount}
-            />
+          <Route component={NavBar} />
           <Switch>
-            {/* Temporary redirect from /; will use HomePage component */ }
+            {/* Temporary redirect from /; will use HomePage component */}
             <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
             <Route exact path="/dashboard" render={() => {
               return this.props.authenticated
@@ -41,10 +35,6 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return state.user;
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     removeNotification(id){
@@ -56,4 +46,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(({ user, currentPursuanceId }) => ({ user, currentPursuanceId }), mapDispatchToProps)(App);

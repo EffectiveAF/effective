@@ -22,6 +22,42 @@ class PublicPursuanceList extends Component {
     getMemberships({ "user_username" : user.username });
   }
 
+  sortByDateDesc = (p1, p2) => {
+    p1["created_parsed"] = Date.parse(p1.created);
+    p2["created_parsed"] = Date.parse(p2.created);
+    return p2.created_parsed - p1.created_parsed;
+  }
+
+  sortByDateAsc = (p1, p2) => {
+    return p1.created_parsed - p2.created_parsed;
+  }
+
+  sortByNameAsc = (p1, p2) => {
+    return p1.name.toLowerCase().localeCompare(p2.name.toLowerCase());
+  }
+
+  sortByNameDesc = (p1, p2) => {
+    return p2.name.toLowerCase().localeCompare(p1.name.toLowerCase());
+  }
+
+  sortBy = () => {
+    switch(this.props.publicOrder) {
+      case "Most Recent":
+        return this.sortByDateDesc;
+      case "Oldest":
+        return this.sortByDateAsc;
+      case "A to Z":
+        return this.sortByNameAsc;
+      case "Z to A":
+        return this.sortByNameDesc;
+      case "Most Popular":
+        // function
+        break;
+      default:
+        return this.sortByDateDesc;
+    }
+  }
+
   onChangeTag = (e) => {
     this.setState({
       searchByTag: e.target.value
@@ -31,6 +67,7 @@ class PublicPursuanceList extends Component {
   getPublicPursuanceList = () => {
     const { user, publicPursuances, postMembership, memberships, deleteMembership } = this.props;
     const pursuanceArr = Object.values(publicPursuances);
+    pursuanceArr.sort(this.sortBy());
     return pursuanceArr.map((pursuance) => {
       if (pursuance.name.toLowerCase().indexOf(this.state.searchByTag) === -1 &&
           pursuance.mission.toLowerCase().indexOf(this.state.searchByTag) === -1) {
@@ -108,11 +145,10 @@ class PublicPursuanceList extends Component {
       </div>
     )
   }
-
 }
 
-export default connect(({ publicPursuances, user, memberships }) =>
- ({ publicPursuances, user, memberships }),{
+export default connect(({ publicPursuances, user, memberships, publicOrder }) =>
+ ({ publicPursuances, user, memberships, publicOrder }),{
    postMembership,
    getMemberships,
    deleteMembership
