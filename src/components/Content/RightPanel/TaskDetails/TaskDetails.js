@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { showTaskInPursuance } from '../../../../utils/tasks';
 import { getPursuances, getTasks, getUsers, rpShowTaskDetails, patchTask } from '../../../../actions';
-import ReactMarkdown from 'react-markdown';
 import FaCircleO from 'react-icons/lib/fa/circle-o';
 import TaskDetailsTopbar from './TaskDetailsTopbar';
 import TaskTitle from './TaskTitle/TaskTitle';
 import TaskIcons from './TaskIcons/TaskIcons';
 import TaskForm from '../../TaskManager/TaskForm/TaskForm';
+import Wysiwyg from './Wysiwyg/Wysiwyg';
 
 import './TaskDetails.css';
 
@@ -92,18 +92,7 @@ class TaskDetails extends Component {
               </span>
             </div>
             <div className="task-deliverables-ctn">
-              <h4><strong>Description / Deliverables</strong></h4>
-              <span>
-                <ReactMarkdown
-                  source={task.deliverables}
-                  render={{Link: props => {
-                    if (props.href.startsWith('/')) {
-                      return <a href={props.href}>{props.children}</a>;
-                    }
-                    // If link to external site, open in new tab
-                    return <a href={props.href} target="_blank">{props.children}</a>;
-                  }}} />
-              </span>
+              <Wysiwyg taskGid={taskGid} attributeName='deliverables' patchTask={this.props.patchTask} />
             </div>
             <div className="subtasks-ctn">
               <h4><strong>Subtasks</strong></h4>
