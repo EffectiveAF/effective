@@ -1,6 +1,13 @@
 .public-pursuance-search-form {
+  display: flex;
+  align-content: flex-start;
+  flex-flow: column wrap;
+  height: 70px;
   margin-top: 5px;
 }
+
+.public-pursuance-search-form label[for='a'] { order: -2; }
+.public-pursuance-search-form label[for='b'] { order: -1; }
 
 .public-pursuance-search-form label {
   color: white;
@@ -11,6 +18,7 @@
 .public-pursuance-search-form input {
   height: 28px;
   padding-left: 5px;
+  margin: 3px 0px;
   min-width: 50vw;
   border-radius: 5px;
   border: none;
@@ -27,4 +35,12 @@
 
 .pursuance-description h3 {
   color: #50b3fe;
+}
+
+@media (max-width:500px) {
+  .public-pursuance-search-form {
+    height: 140px;
+  }
+
+  .public-pursuance-search-form label[for='b'] { order: 0; }
 }
