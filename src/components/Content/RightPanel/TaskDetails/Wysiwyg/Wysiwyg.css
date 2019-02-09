@@ -8,6 +8,8 @@
   background: #fefefe;
   color: black;
   border-bottom: 2px solid #50b3fe;
+  width: 100%;
+  min-height: 175px;
 }
 
 .wysiwyg :global(.public-DraftEditor-content) {
