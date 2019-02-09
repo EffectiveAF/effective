@@ -88,19 +88,19 @@ class PublicPursuanceList extends Component {
       <div className="pursuance-list">
         <h2 className="dash-box-title">Search All Public {PROJECTS_CAPITAL}</h2>
         <div className="public-pursuance-search-form">
-          <label htmlFor="a">Search by tag:</label>
+          <label htmlFor="search-by-tag">Search by tag:</label>
           <input
-            id="a"
+            id="search-by-input"
             type="text"
-            placeholder="Prison Reform"
+            placeholder="PrisonReform"
             autoFocus
             onChange={this.onChangeTag}
           />
-          <label htmlFor="b">Search {PROJECT} descriptions:</label>
+          <label htmlFor="search-project-description">Search {PROJECT} descriptions:</label>
           <input
-            id="b"
+            id="search-project-description"
             type="text"
-            placeholder="Prison Industrial Complex"
+            placeholder="prison-industrial complex"
           />
         </div>
         <hr />

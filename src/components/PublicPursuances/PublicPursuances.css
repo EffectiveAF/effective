@@ -6,8 +6,12 @@
   margin-top: 5px;
 }
 
-.public-pursuance-search-form label[for='a'] { order: -2; }
-.public-pursuance-search-form label[for='b'] { order: -1; }
+.public-pursuance-search-form label[for='search-by-tag'] { 
+  order: -2; 
+}
+.public-pursuance-search-form label[for='search-project-description'] { 
+  order: -1; 
+}
 
 .public-pursuance-search-form label {
   color: white;
@@ -42,5 +46,7 @@
     height: 140px;
   }
 
-  .public-pursuance-search-form label[for='b'] { order: 0; }
+  .public-pursuance-search-form label[for='search-project-description'] { 
+    order: 0; 
+  }
 }
