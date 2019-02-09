@@ -8,7 +8,7 @@ import TaskDetailsTopbar from './TaskDetailsTopbar';
 import TaskTitle from './TaskTitle/TaskTitle';
 import TaskIcons from './TaskIcons/TaskIcons';
 import TaskForm from '../../TaskManager/TaskForm/TaskForm';
-import Wysiwyg from './Wysiwyg/Wysiwyg'; 
+import Wysiwyg from './Wysiwyg/Wysiwyg';
 
 import './TaskDetails.css';
 
