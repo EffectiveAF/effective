@@ -117,6 +117,23 @@ class MyTasks extends Component {
             <Tab eventKey={0} title="Unified" className="invite-hierarchy">
               <div>
                 <h3>Unified Task List</h3>
+                <div id="my-task-labels">
+                 <div id="my-task-label-title">
+                   <span>
+                      Task Title
+                   </span>
+                 </div>
+                 <div id="my-task-label-reassign" className="hide-small">
+                   <span>
+                    Reassign
+                   </span>
+                 </div>
+                 <div id="my-task-label-due-date" className="hide-small">
+                   <span>
+                      Due Date
+                   </span>
+                 </div>
+                </div>
                 <SyntheticTaskList
                   taskGids={taskGids}
                 />
