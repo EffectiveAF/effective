@@ -8,19 +8,19 @@
 }
 
 #my-task-labels {
+  color: #eaeaea;
   display: flex;
   flex-direction: row;
+  font-size: 1.36em;
   justify-content: flex-end;
   max-width: 92%;
   padding: 0px 0px 3px 80px;
-  color: #eaeaea;
-  font-size: 1.36em;
   text-decoration: underline;
 }
 
 #my-task-label-title {
-  justify-self: flex-start;
   flex: 1;
+  justify-self: flex-start;
 }
 
 #my-task-label-reassign {
