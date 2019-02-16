@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { DragSource, DropTarget } from 'react-dnd';
 import generateId from '../../../../utils/generateId';
 import { showAssignee, isRootTaskInPursuance } from '../../../../utils/tasks';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
@@ -20,7 +22,8 @@ import {
   removeTaskFormFromHierarchy,
   startSuggestions,
   rpShowTaskDetailsOrCollapse,
-  patchTask
+  patchTask,
+  moveTask
 } from '../../../../actions';
 
 // task list uses the default vertical/wide spread confetti
@@ -31,6 +34,60 @@ const confettiConfig = {
   elementCount: 167,
   decay: 0.84
 };
+
+
+const taskSource = {
+  beginDrag(props, monitor, component) {
+    const { taskData } = props;
+    return taskData;
+  },
+  canDrag(props, monitor) {
+    const { taskData } = props;
+    return !!taskData.parent_task_gid;
+  }
+};
+
+const taskTarget = {
+  canDrop(props, monitor) {
+    const { taskMap, taskData } = props;
+    const source = monitor.getItem();
+    // recursively checks if the source is a descendant of the target
+    const isParent = (map, target, source) => {
+      if (!target || !target.parent_task_gid) return false;
+      return (target.gid === source.gid) || isParent(map, map[target.parent_task_gid], source);
+    }
+    return !isParent(taskMap, taskData, source);
+  },
+  drop(props, monitor, component) {
+    const { taskData, patchTask, moveTask } = props;
+    const { gid, parent_task_gid } = monitor.getItem();
+    const oldParent = parent_task_gid;
+    moveTask(oldParent, taskData.gid, gid)
+    patchTask({
+      gid: gid,
+      parent_task_gid: taskData.gid
+    }).catch(res => {
+      const { action: { type } } = res;
+      if ( type !== 'PATCH_TASK_FULFILLED') {
+        moveTask(taskData.gid, oldParent, gid);
+      }
+    });
+  }
+}
+
+function collectTarget(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    canDrop: monitor.canDrop(),
+    isOver: monitor.isOver()
+  }
+}
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource()
+  };
+}
 
 class RawTask extends Component {
   constructor(props) {
@@ -186,7 +243,7 @@ class RawTask extends Component {
   }
 
   render() {
-    const { pursuances, taskData, currentPursuanceId, rightPanel, isInTaskList } = this.props;
+    const { pursuances, taskData, currentPursuanceId, rightPanel, isInTaskList, connectDragSource, connectDropTarget, canDrop, isOver } = this.props;
     const { showChildren } = this.state;
     const task = taskData;
     if (!task) {
@@ -208,55 +265,57 @@ class RawTask extends Component {
               {this.getTaskIcon(task, showChildren)}
             </div>
           )}
-          <div className="task-row-ctn">
-            <div className="task-title" onClick={this.selectTaskInHierarchy}>
-              {this.showTitle(task)}
-            </div>
-            <div className="task-title-buffer" onClick={this.selectTaskInHierarchy}>
-            </div>
-            <div className={"task-icons-ctn " + (isInTaskList ? 'in-task-list-narrow' : '')}>
-              {!isInTaskList && (
+          {connectDropTarget(connectDragSource(
+            <div className={'task-row-ctn ' + (canDrop && isOver ? 'highlight-task' : '')}>
+              <div className="task-title" onClick={this.selectTaskInHierarchy}>
+                {this.showTitle(task)}
+              </div>
+              <div className="task-title-buffer" onClick={this.selectTaskInHierarchy}>
+              </div>
+              <div className={"task-icons-ctn " + (isInTaskList ? 'in-task-list-narrow' : '')}>
+                {!isInTaskList && (
+                  <OverlayTrigger
+                    placement="bottom"
+                    overlay={this.getTooltip('hands-down')}
+                  >
+                    <div id={'create-subtask-' + task.gid} className="icon-ctn create-subtask" onClick={this.toggleNewForm}>
+                      <TiFlowChildren size={20} />
+                    </div>
+                  </OverlayTrigger>
+                )}
                 <OverlayTrigger
                   placement="bottom"
-                  overlay={this.getTooltip('hands-down')}
+                  overlay={this.getTooltip('chat')}
                 >
-                  <div id={'create-subtask-' + task.gid} className="icon-ctn create-subtask" onClick={this.toggleNewForm}>
-                    <TiFlowChildren size={20} />
+                  <div id={'discuss-task-' + task.gid} className="icon-ctn discuss-task hide-small" onClick={this.redirectToDiscuss}>
+                    <FaCommentsO size={20} />
                   </div>
                 </OverlayTrigger>
+              </div>
+              {!isInTaskList && (
+                <TaskStatus
+                  gid={task.gid}
+                  status={task.status}
+                  patchTask={this.props.patchTask}
+                  showCelebration={task.celebration === 'show' && !rightPanel.show}
+                  confettiConfig={confettiConfig}
+                />
               )}
-              <OverlayTrigger
-                placement="bottom"
-                overlay={this.getTooltip('chat')}
-              >
-                <div id={'discuss-task-' + task.gid} className="icon-ctn discuss-task hide-small" onClick={this.redirectToDiscuss}>
-                  <FaCommentsO size={20} />
-                </div>
-              </OverlayTrigger>
-            </div>
-            {!isInTaskList && (
-              <TaskStatus
-                gid={task.gid}
-                status={task.status}
+              <div className="task-assigned-to hide-small">
+                <TaskAssigner
+                  taskGid={task.gid}
+                  placeholder={placeholder}
+                  assignedTo={assignedTo}
+                />
+              </div>
+              <TaskDueDate
+                id={task.gid}
+                taskData={task}
+                autoFocus={true}
                 patchTask={this.props.patchTask}
-                showCelebration={task.celebration === 'show' && !rightPanel.show}
-                confettiConfig={confettiConfig}
-              />
-            )}
-            <div className="task-assigned-to hide-small">
-              <TaskAssigner
-                taskGid={task.gid}
-                placeholder={placeholder}
-                assignedTo={assignedTo}
               />
             </div>
-            <TaskDueDate
-              id={task.gid}
-              taskData={task}
-              autoFocus={true}
-              patchTask={this.props.patchTask}
-             />
-          </div>
+          ))}
         </div>
         {
           task.subtask_gids && task.subtask_gids.length > 0 &&
@@ -272,15 +331,23 @@ class RawTask extends Component {
   }
 }
 
-const Task = withRouter(connect(
-  ({ pursuances, user, users, currentPursuanceId, autoComplete, rightPanel }) =>
-   ({ pursuances, user, users, currentPursuanceId, autoComplete, rightPanel }), {
-  addTaskFormToHierarchy,
-  removeTaskFormFromHierarchy,
-  startSuggestions,
-  rpShowTaskDetailsOrCollapse,
-  patchTask
-})(RawTask));
+const enhance = compose(
+  withRouter,
+  connect(
+    ({ pursuances, user, users, currentPursuanceId, autoComplete, rightPanel }) =>
+    ({ pursuances, user, users, currentPursuanceId, autoComplete, rightPanel }), {
+      addTaskFormToHierarchy,
+      removeTaskFormFromHierarchy,
+      startSuggestions,
+      rpShowTaskDetailsOrCollapse,
+      patchTask,
+      moveTask
+    }),
+  // placed after connect to make dispatch available.
+  DragSource('TASK', taskSource, collect),
+  DropTarget('TASK', taskTarget, collectTarget),
+)
+const Task = enhance(RawTask);      
 
 // Why RawTask _and_ Task? Because Task.mapSubTasks() recursively
 // renders Task components which weren't wrapped in a Redux connect()

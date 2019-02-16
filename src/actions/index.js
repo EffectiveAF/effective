@@ -24,6 +24,13 @@ import {
   deleteMembershipReq,
 } from '../api/memberships';
 
+export const moveTask = (oldParentGid, newParentGid, taskGid) => ({
+  type: 'MOVE_TASK',
+  oldParentGid,
+  newParentGid,
+  taskGid
+})
+
 export const updateFormField = (formId, fieldId, value) => ({
   type: 'TASK_FIELD_UPDATE',
   formId,
