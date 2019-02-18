@@ -1,5 +1,32 @@
 @media (max-width: 899px) {
-  .synthetic-tasklist .hide-small {
+  .synthetic-tasklist .hide-small, 
+  #my-task-label-reassign.hide-small, 
+  #my-task-label-due-date.hide-small  {
     display: none;
   }
+
+}
+
+#my-task-labels {
+  color: #eaeaea;
+  display: flex;
+  flex-direction: row;
+  font-size: 1.36em;
+  justify-content: flex-end;
+  max-width: 92%;
+  padding: 0px 0px 3px 80px;
+  text-decoration: underline;
+}
+
+#my-task-label-title {
+  flex: 1;
+  justify-self: flex-start;
+}
+
+#my-task-label-reassign {
+  width: 185px;
+}
+
+#my-task-label-due-date {
+  width: 108px;
 }
