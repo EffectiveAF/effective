@@ -207,7 +207,6 @@ export default function(state = initialState, action) {
       const newSubtasks = newSubtaskGids.filter(
         (gid, idx) => newSubtaskGids.indexOf(gid) === idx
       );
-
       
       newSubtasks.sort(function(gid1, gid2) {
         newMap[gid1].created_parsed = newMap[gid1].created_parsed || new Date(newMap[gid1].created);
