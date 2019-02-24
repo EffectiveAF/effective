@@ -3,6 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { DragSource, DropTarget } from 'react-dnd';
+import _ from 'lodash';
 import generateId from '../../../../utils/generateId';
 import { showAssignee, isRootTaskInPursuance } from '../../../../utils/tasks';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
@@ -48,16 +49,19 @@ const taskSource = {
 };
 
 const taskTarget = {
-  canDrop(props, monitor) {
+  canDrop: _.debounce((props, monitor) => {
     const { taskMap, taskData } = props;
     const source = monitor.getItem();
-    // recursively checks if the source is a descendant of the target
-    const isParent = (map, target, source) => {
-      if (!target || !target.parent_task_gid) return false;
-      return (target.gid === source.gid) || isParent(map, map[target.parent_task_gid], source);
+
+    if (source) {
+      // recursively checks if the source is a descendant of the target
+      const isParent = (map, target, source) => {
+        if (!target || !target.parent_task_gid) return false;
+        return (target.gid === source.gid) || isParent(map, map[target.parent_task_gid], source);
+      }
+      return !isParent(taskMap, taskData, source);
     }
-    return !isParent(taskMap, taskData, source);
-  },
+  }, 15),
   drop(props, monitor, component) {
     const { taskData, patchTask, moveTask } = props;
     const { gid, parent_task_gid } = monitor.getItem();
