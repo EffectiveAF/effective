@@ -195,7 +195,7 @@ export default function(state = initialState, action) {
       });
     }
 
-    case 'MOVE_TASK':
+    case 'MOVE_TASK_IN_HIERARCHY':
       const { oldParentGid, newParentGid, taskGid } = action;
       const newMap = Object.assign({}, state.taskMap);
       const newParentTask = newMap[newParentGid];
@@ -203,11 +203,8 @@ export default function(state = initialState, action) {
       const oldParentSubtaskGids = oldParentTask.subtask_gids.filter(
         gid => gid !== taskGid
       );
-      const newSubtaskGids = [...newParentTask.subtask_gids, taskGid];
-      const newSubtasks = newSubtaskGids.filter(
-        (gid, idx) => newSubtaskGids.indexOf(gid) === idx
-      );
       
+      const newSubtasks = [...newParentTask.subtask_gids, taskGid];
       newSubtasks.sort(function(gid1, gid2) {
         newMap[gid1].created_parsed = newMap[gid1].created_parsed || new Date(newMap[gid1].created);
         newMap[gid2].created_parsed = newMap[gid2].created_parsed || new Date(newMap[gid2].created); 

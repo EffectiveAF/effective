@@ -24,8 +24,8 @@ import {
   deleteMembershipReq,
 } from '../api/memberships';
 
-export const moveTask = (oldParentGid, newParentGid, taskGid) => ({
-  type: 'MOVE_TASK',
+export const moveTaskInHierarchy = (oldParentGid, newParentGid, taskGid) => ({
+  type: 'MOVE_TASK_IN_HIERARCHY',
   oldParentGid,
   newParentGid,
   taskGid

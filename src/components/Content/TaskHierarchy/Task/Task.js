@@ -24,7 +24,7 @@ import {
   startSuggestions,
   rpShowTaskDetailsOrCollapse,
   patchTask,
-  moveTask
+  moveTaskInHierarchy
 } from '../../../../actions';
 
 // task list uses the default vertical/wide spread confetti
@@ -63,17 +63,18 @@ const taskTarget = {
     }
   }, 15),
   drop(props, monitor, component) {
-    const { taskData, patchTask, moveTask } = props;
+    const { taskData, patchTask, moveTaskInHierarchy } = props;
     const { gid, parent_task_gid } = monitor.getItem();
     const oldParent = parent_task_gid;
-    moveTask(oldParent, taskData.gid, gid)
+    moveTaskInHierarchy(oldParent, taskData.gid, gid);
+
     patchTask({
       gid: gid,
       parent_task_gid: taskData.gid
     }).catch(res => {
       const { action: { type } } = res;
       if ( type !== 'PATCH_TASK_FULFILLED') {
-        moveTask(taskData.gid, oldParent, gid);
+        moveTaskInHierarchy(taskData.gid, oldParent, gid);
       }
     });
   }
@@ -345,7 +346,7 @@ const enhance = compose(
       startSuggestions,
       rpShowTaskDetailsOrCollapse,
       patchTask,
-      moveTask
+      moveTaskInHierarchy
     }),
   // placed after connect to make dispatch available.
   DragSource('TASK', taskSource, collect),
