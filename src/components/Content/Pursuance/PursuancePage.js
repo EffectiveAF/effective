@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import { setCurrentPursuance } from '../../../actions';
 import PursuanceMenu from './PursuanceMenu';
 import MyTasksView from './views/MyTasksView';
@@ -50,7 +52,7 @@ class PursuancePage extends Component {
   }
 }
 
-export default connect(({currentPursuanceId}) =>
+export default DragDropContext(HTML5Backend)(connect(({currentPursuanceId}) =>
   ({ currentPursuanceId }), {
    setCurrentPursuance
-})(PursuancePage);
+})(PursuancePage));

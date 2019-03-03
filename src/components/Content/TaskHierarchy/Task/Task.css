@@ -15,6 +15,10 @@
   border-color: #fff;
 }
 
+.highlight-task {
+  background-color: #50b3fe;
+}
+
 .toggle-ctn {
   padding-right: 6px;
 }

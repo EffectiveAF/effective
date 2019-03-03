@@ -195,6 +195,42 @@ export default function(state = initialState, action) {
       });
     }
 
+    case 'MOVE_TASK_IN_HIERARCHY':
+      const { oldParentGid, newParentGid, taskGid } = action;
+      const newMap = Object.assign({}, state.taskMap);
+      const newParentTask = newMap[newParentGid];
+      const oldParentTask = newMap[oldParentGid];
+      const oldParentSubtaskGids = oldParentTask.subtask_gids.filter(
+        gid => gid !== taskGid
+      );
+      
+      const newSubtasks = [...newParentTask.subtask_gids, taskGid];
+      newSubtasks.sort(function(gid1, gid2) {
+        newMap[gid1].created_parsed = newMap[gid1].created_parsed || new Date(newMap[gid1].created);
+        newMap[gid2].created_parsed = newMap[gid2].created_parsed || new Date(newMap[gid2].created); 
+        const t1Date = newMap[gid1].created_parsed;
+        const t2Date = newMap[gid2].created_parsed;
+        
+        if (t1Date === t2Date) {
+          return ( gid1 < gid2) ? -1 : ( gid1 > gid2 ) ? 1 : 0;
+        } else {
+          return (t1Date > t2Date) ? 1 : -1;
+        }
+      });
+
+      return Object.assign({}, state, {
+        taskMap: Object.assign(newMap, {
+          [oldParentGid]: {
+            ...oldParentTask,
+            subtask_gids: oldParentSubtaskGids
+          },
+          [newParentGid]: {
+            ...newParentTask,
+            subtask_gids: newSubtasks
+          }
+        })
+      });
+
     default:
       return state;
   }
